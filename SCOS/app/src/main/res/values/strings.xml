@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SCOS</string>
+    <string name="welcomeText">欢迎光临！</string>
 </resources>
