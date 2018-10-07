@@ -16,6 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainScreen">
+            <intent-filter>
+                <action android:name="scos.intent.action.SCOSMAIN" />
+
+                <category android:name="scos.intent.category.SCOSLAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LoginOrRegister">
+
+        </activity>
     </application>
 
 </manifest>
