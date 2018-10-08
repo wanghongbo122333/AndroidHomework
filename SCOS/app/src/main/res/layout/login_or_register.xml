@@ -24,7 +24,7 @@
         android:layout_below="@+id/editText4"
         android:layout_marginStart="63dp"
         android:layout_marginTop="50dp"
-        android:text="Button" />
+        android:text="登录" />
 
     <Button
         android:id="@+id/button2"
@@ -34,7 +34,7 @@
         android:layout_alignBottom="@+id/button"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="50dp"
-        android:text="Button" />
+        android:text="返回" />
 
     <EditText
         android:id="@+id/editText4"

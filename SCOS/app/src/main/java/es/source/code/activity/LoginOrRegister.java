@@ -1,11 +1,17 @@
 package es.source.code.activity;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by admin on 2018/10/7.
+ * Created by Wanghongbo on 2018/10/7.
  */
 
 public class LoginOrRegister extends AppCompatActivity {
-
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_or_register);
+    }
 }
