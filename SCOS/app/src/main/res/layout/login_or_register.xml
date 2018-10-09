@@ -5,11 +5,11 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/nameInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText4"
-        android:layout_alignEnd="@+id/button2"
+        android:layout_above="@+id/pwdInput"
+        android:layout_alignEnd="@+id/backBtn"
         android:layout_marginBottom="31dp"
         android:ems="10"
         android:hint="请输入用户名"
@@ -17,30 +17,30 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/logBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editText4"
+        android:layout_below="@+id/pwdInput"
         android:layout_marginStart="63dp"
         android:layout_marginTop="50dp"
         android:text="登录" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button"
-        android:layout_alignBottom="@+id/button"
+        android:layout_alignBaseline="@+id/logBtn"
+        android:layout_alignBottom="@+id/logBtn"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="56dp"
         android:text="返回" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/pwdInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText"
+        android:layout_alignStart="@+id/nameInput"
         android:layout_centerVertical="true"
         android:ems="10"
         android:textAlignment="center"
@@ -48,24 +48,37 @@
         android:hint="请输入密码"/>
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_alignTop="@+id/editText"
+        android:layout_alignBottom="@+id/nameInput"
+        android:layout_alignTop="@+id/nameInput"
         android:layout_marginEnd="16dp"
-        android:layout_toStartOf="@+id/editText"
+        android:layout_toStartOf="@+id/nameInput"
         android:text="用户名"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:gravity="center"
+        android:id="@+id/textView" />
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button"
-        android:layout_alignEnd="@+id/textView2"
-        android:layout_alignStart="@+id/button"
-        android:layout_alignTop="@+id/editText4"
-        android:text="密码" />
+        android:layout_above="@+id/logBtn"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/nameInput"
+        android:gravity="center"
+        android:text="密码"
+        android:textAlignment="center" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/nameInput"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="47dp"
+        android:max="100"/>
 
 </RelativeLayout>

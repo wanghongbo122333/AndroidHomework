@@ -19,7 +19,7 @@
         <activity android:name=".MainScreen">
             <intent-filter>
                 <action android:name="scos.intent.action.SCOSMAIN" />
-
+                <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="scos.intent.category.SCOSLAUNCHER" />
             </intent-filter>
         </activity>
@@ -27,5 +27,7 @@
 
         </activity>
     </application>
+    <permission android:name="scos.permission.ACCESSSCOS"
+        android:protectionLevel="dangerous"/>
 
 </manifest>
