@@ -72,7 +72,7 @@ public class LoginOrRegister extends AppCompatActivity {
                     Log.d(TAG, "run:  login finish ");
                     Intent intent = new Intent("scos.intent.action.SCOSMAIN");
                     intent.addCategory("scos.intent.category.SCOSLAUNCHER");
-                    intent.putExtra("info", "LoginSuccess");
+                    intent.putExtra("info","LoginSuccess");
                     startActivity(intent);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

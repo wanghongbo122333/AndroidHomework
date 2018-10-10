@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainScreen"
-            android:permission="scos.permission.ACCESSSCOS">
+            android:permission="scos.permission.ACCESSSCOS"
+            android:exported="true">
             <intent-filter>
                 <action android:name="scos.intent.action.SCOSMAIN" />
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -24,7 +25,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginOrRegister">
-
         </activity>
     </application>
     <permission android:name="scos.permission.ACCESSSCOS"
