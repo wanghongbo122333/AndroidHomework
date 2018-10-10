@@ -26,7 +26,7 @@ public class MainScreen extends AppCompatActivity {
         String data = intent.getStringExtra("info");
         Log.d(TAG, "onCreate: get info:"+data);
 
-        if("FromEntry".equals(data)){
+        if("FromEntry".equals(data)){//FromEntry表示从欢迎界面过来，隐藏点菜和查看订单
             setContentView(R.layout.mainscreen);
             initial();
             ordtv.setVisibility(View.GONE);
@@ -34,21 +34,17 @@ public class MainScreen extends AppCompatActivity {
             looktv.setVisibility(View.GONE);
             lookbtn.setVisibility(View.GONE);
         }
-        else if ("LoginSuccess".equals(data)){
-            setContentView(R.layout.mainscreen);
-            initial();
-            /*ordtv.setVisibility(View.VISIBLE);
-            ordbtn.setVisibility(View.VISIBLE);
-            looktv.setVisibility(View.VISIBLE);
-            lookbtn.setVisibility(View.VISIBLE);*/
-        }
-        else if ("RegisterSuccess".equals(data)){
+        else if ("LoginSuccess".equals(data)){//LoginSuccess表示登录成功跳转过来，展示所有按钮
             setContentView(R.layout.mainscreen);
             initial();
         }
-        else if ("Return".equals(data)){
+        else if ("Return".equals(data)){//Return表示从登录界面的返回按钮跳转来，隐藏部分导航栏按钮
             setContentView(R.layout.mainscreen);
             initial();
+            ordtv.setVisibility(View.GONE);
+            ordbtn.setVisibility(View.GONE);
+            looktv.setVisibility(View.GONE);
+            lookbtn.setVisibility(View.GONE);
         }
         else{
             Log.d(TAG, "onCreate: fail");
@@ -72,5 +68,5 @@ public class MainScreen extends AppCompatActivity {
             }
         });
     }
-    //can you see me ?
+
 }

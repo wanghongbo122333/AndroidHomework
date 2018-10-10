@@ -12,13 +12,11 @@
         <activity android:name=".SCOSEntry">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".MainScreen"
             android:permission="scos.permission.ACCESSSCOS">
-
             <intent-filter>
                 <action android:name="scos.intent.action.SCOSMAIN" />
                 <category android:name="android.intent.category.DEFAULT"/>

@@ -72,13 +72,12 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
+        style="?android:attr/progressBarStyleLargeInverse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/nameInput"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView"
-        android:layout_marginTop="47dp"
-        android:max="100"/>
+        android:layout_above="@+id/logBtn"
+        android:layout_marginBottom="15dp"
+        android:layout_toStartOf="@+id/backBtn" />
+
 
 </RelativeLayout>
