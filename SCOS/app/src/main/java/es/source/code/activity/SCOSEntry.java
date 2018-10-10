@@ -31,7 +31,6 @@ public class SCOSEntry extends AppCompatActivity implements GestureDetector.OnGe
         Log.d("Touch", "onDown:检测 ");
         return true;
     }
-
     @Override
     public void onShowPress(MotionEvent motionEvent) {
 

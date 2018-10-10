@@ -5,79 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <GridView
+        android:id="@+id/gridview"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_orange_light"
-        android:orientation="vertical"
-        android:paddingTop="5dp">
+        android:columnWidth="350dp"
+        android:stretchMode="columnWidth"
+        android:numColumns="2"
+        />
 
-        <ImageButton
-            android:id="@+id/logbtn"
-            android:layout_width="140dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/login" />
-        <TextView
-            android:id="@+id/logtv"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="登录"
-            android:textAlignment="center" />
-
-        <ImageButton
-            android:id="@+id/ordbtn"
-            android:layout_width="140dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/lookorder" />
-
-        <TextView
-            android:id="@+id/ordtv"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="点菜"
-            android:textAlignment="center" />
-
-        <ImageButton
-            android:id="@+id/lookbtn"
-            android:layout_width="140dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/order" />
-
-        <TextView
-            android:id="@+id/looktv"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="查看订单"
-            android:textAlignment="center" />
-
-        <ImageButton
-            android:id="@+id/helpbtn"
-            android:layout_width="140dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/help" />
-
-        <TextView
-            android:id="@+id/helptv"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="使用帮助"
-            android:textAlignment="center" />
-
-    </LinearLayout>
 </LinearLayout>

@@ -36,6 +36,15 @@
         android:layout_marginEnd="56dp"
         android:text="返回" />
 
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/logBtn"
+        android:layout_alignBottom="@+id/logBtn"
+        android:layout_toEndOf="@+id/logBtn"
+        android:text="注册" />
+
     <EditText
         android:id="@+id/pwdInput"
         android:layout_width="wrap_content"
