@@ -79,14 +79,14 @@
         android:text="密码"
         android:textAlignment="center" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLargeInverse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/logBtn"
-        android:layout_marginBottom="15dp"
-        android:layout_toStartOf="@+id/backBtn" />
+    <!--<ProgressBar-->
+        <!--android:id="@+id/progressBar"-->
+        <!--style="?android:attr/progressBarStyleLargeInverse"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/logBtn"-->
+        <!--android:layout_marginBottom="15dp"-->
+        <!--android:layout_toStartOf="@+id/backBtn" />-->
 
 
 </RelativeLayout>
