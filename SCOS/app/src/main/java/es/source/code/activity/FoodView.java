@@ -23,66 +23,30 @@ import es.source.code.model.User;
  */
 
 public class FoodView extends AppCompatActivity {
-    ViewPager viewpage;
-    List<CuisineFragment> fragmentList = new ArrayList<CuisineFragment>();
+    ViewPager viewPager;
+    List<CuisineFragment> fragmentList = new ArrayList<>();
     ViewPageAdapter adapter;
     TabLayout tabLayout;
-
-    User user = null;
-
-    //action bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.food_menu, menu);
-        return true;
-    }
-
-
-    @Override
-    //Actionbar
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Bundle bundle;
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.action_already://
-                bundle = new Bundle();
-                bundle.putString("action", "action_already");
-                bundle.putSerializable("user", user);
-
-                intent = new Intent(FoodView.this, FoodOrderView.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                return true;
-            case R.id.action_check:
-
-                bundle = new Bundle();
-                bundle.putString("action", "action_check");
-                bundle.putSerializable("user", user);
-
-                intent = new Intent(FoodView.this, FoodOrderView.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                return true;
-            case R.id.action_help:
-                Toast.makeText(this, "action_help", Toast.LENGTH_SHORT).show();
-                return true;
-        }
-        return true;
-    }
+    private User currentUser = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_view);
-        viewpage = (ViewPager) findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-
+        viewPager = findViewById(R.id.viewpager);
+        tabLayout = findViewById(R.id.tabLayout);
+        //获取当前的用户信息
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        try {
+            this.currentUser = (User) bundle.getSerializable("user");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
-        this.user = (User)bundle.getSerializable("user");
-        if (user != null)
-            Toast.makeText(this, "" + user.getUserName(), Toast.LENGTH_SHORT).show();
+        //一般来说能进入该页面，说明已经登录或者注册了，已经有user信息
+        if (currentUser != null)
+            Toast.makeText(this, "欢迎光临！亲爱的" + currentUser.getUserName(), Toast.LENGTH_SHORT).show();
         else {
             Toast.makeText(this, "未注册", Toast.LENGTH_SHORT).show();
         }
@@ -93,9 +57,47 @@ public class FoodView extends AppCompatActivity {
         fragmentList.add(new CuisineFragment("酒水"));
 
         adapter = new ViewPageAdapter(getSupportFragmentManager());
-        viewpage.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewpage);
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.food_menu, menu);
+        return true;
+    }
+
+    @Override
+    //Actionbar
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Bundle bundle;
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.action_already://查看已经点的菜
+                bundle = new Bundle();
+                bundle.putString("action", "action_already");
+                bundle.putSerializable("user", currentUser);
+
+                intent = new Intent(FoodView.this, FoodOrderView.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.action_check://已下单菜
+
+                bundle = new Bundle();
+                bundle.putString("action", "action_check");
+                bundle.putSerializable("user", currentUser);
+
+                intent = new Intent(FoodView.this, FoodOrderView.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return true;
+            case R.id.action_help://呼叫服务
+                Toast.makeText(this, "action_help", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return true;
     }
 
     class ViewPageAdapter extends FragmentPagerAdapter {

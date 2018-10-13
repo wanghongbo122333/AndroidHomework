@@ -27,7 +27,7 @@ import es.source.code.adapter.ConfAdapter;
 public class CuisineFragment extends Fragment {
     Context mContext;
     TextView textView;
-
+    private String title;
     public String getTitle() {
         return title;
     }
@@ -36,7 +36,6 @@ public class CuisineFragment extends Fragment {
         this.title = title;
     }
 
-    String title;
 
     public CuisineFragment() {
 
