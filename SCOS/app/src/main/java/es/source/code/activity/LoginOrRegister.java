@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 import es.source.code.model.User;
 
 /**
- * Created by Wanghongbo on 2018/10/7.
+ * Created by WangHongbo on 2018/10/7.
  */
 
 public class LoginOrRegister extends AppCompatActivity {
@@ -30,12 +30,12 @@ public class LoginOrRegister extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_or_register);
-        logBtn = (Button) findViewById(R.id.logBtn);
-        backBtn = (Button) findViewById(R.id.backBtn);
-        registerBtn = (Button) findViewById(R.id.registerBtn);
-        nameInput = (EditText) findViewById(R.id.nameInput);
-        pwdInput = (EditText) findViewById(R.id.pwdInput);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        logBtn = findViewById(R.id.logBtn);
+        backBtn = findViewById(R.id.backBtn);
+        registerBtn = findViewById(R.id.registerBtn);
+        nameInput = findViewById(R.id.nameInput);
+        pwdInput = findViewById(R.id.pwdInput);
+        progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);//隐藏progressbar
         //点击登录按钮
         logBtn.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +55,7 @@ public class LoginOrRegister extends AppCompatActivity {
                     Intent intent = new Intent("scos.intent.action.SCOSMAIN");
                     intent.addCategory("scos.intent.category.SCOSLAUNCHER");
                     intent.putExtra("info", "LoginSuccess");
-                    intent.putExtra("user",loginUser);
+                    intent.putExtra("user", loginUser);
                     startActivity(intent);
                     Log.d(TAG, "run:  login finish ");
                     myThread myThread = new myThread();
@@ -81,7 +81,7 @@ public class LoginOrRegister extends AppCompatActivity {
                     Intent intent = new Intent("scos.intent.action.SCOSMAIN");
                     intent.addCategory("scos.intent.category.SCOSLAUNCHER");
                     intent.putExtra("info", "RegisterSuccess");
-                    intent.putExtra("user",loginUser);
+                    intent.putExtra("user", loginUser);
                     startActivity(intent);
                     Log.d(TAG, "run:  login finish ");
                     myThread myThread = new myThread();

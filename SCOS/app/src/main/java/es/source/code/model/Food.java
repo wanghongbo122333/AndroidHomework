@@ -5,8 +5,8 @@ package es.source.code.model;
  */
 
 public class Food {
-    String foodName;
-    String foodPrice;
+    private String foodName;
+    private String foodPrice;
 
     public String getFoodPrice() {
         return foodPrice;

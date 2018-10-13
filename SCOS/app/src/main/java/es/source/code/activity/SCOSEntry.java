@@ -2,12 +2,11 @@ package es.source.code.activity;
 
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-
 
 
 public class SCOSEntry extends AppCompatActivity implements GestureDetector.OnGestureListener {
@@ -31,6 +30,7 @@ public class SCOSEntry extends AppCompatActivity implements GestureDetector.OnGe
         Log.d("Touch", "onDown:检测 ");
         return true;
     }
+
     @Override
     public void onShowPress(MotionEvent motionEvent) {
 
@@ -58,9 +58,9 @@ public class SCOSEntry extends AppCompatActivity implements GestureDetector.OnGe
             Log.d("Infosssss", "onFling: 滑动检测");
             Intent intent = new Intent("scos.intent.action.SCOSMAIN");
             intent.addCategory("scos.intent.category.SCOSLAUNCHER");
-            intent.putExtra("info","FromEntry");
+            intent.putExtra("info", "FromEntry");
             SCOSEntry.this.startActivity(intent);
-            return  true;
+            return true;
         }
         return false;
     }

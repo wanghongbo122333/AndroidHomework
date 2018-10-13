@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <!--已经下单的菜品item-->
+    <TableLayout
+        android:id="@+id/listItem"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical|left"
+                android:gravity="center_vertical|left" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|left"
+                android:gravity="center_vertical|left" />
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|left"
+                android:gravity="center_vertical|left" />
+
+            <TextView
+                android:id="@+id/remarks"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|left"
+                android:gravity="center_vertical|left" />
+
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

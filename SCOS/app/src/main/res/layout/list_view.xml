@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="460dp">
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_margin="4dp"
+        android:background="#666"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/total"
+            android:text="共2份"
+            android:layout_gravity="center"
+            android:textSize="16dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/totalprice"
+            android:text="总价44元"
+            android:layout_gravity="center"
+            android:textSize="16dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/submit"
+            android:text="结账"
+            android:background="#45b97c"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_1"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_margin="4dp"
+        android:background="#666"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/total_1"
+            android:text="共5份"
+            android:layout_gravity="center"
+            android:textSize="16dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/totalprice_1"
+            android:text="总价113元"
+            android:layout_gravity="center"
+            android:textSize="16dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/submit_1"
+            android:text="提交订单"
+            android:background="#45b97c"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</LinearLayout>

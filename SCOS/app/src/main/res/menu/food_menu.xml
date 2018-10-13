@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_already"
+        android:title="已点菜品"/>
+    <item
+        android:id="@+id/action_check"
+        android:title="查看订单"/>
+    <item
+        android:id="@+id/action_help"
+        android:title="呼叫服务"/>
+
+    <!--android:icon="@drawable/discard"      android:icon="@drawable/cut"     -->
+</menu>

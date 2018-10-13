@@ -19,7 +19,7 @@ import java.util.Map;
 import es.source.code.model.User;
 
 /**
- * Created by Wanghongbo on 2018/10/7.
+ * Created by Wangongbo oHn 2018/10/7.
  */
 
 public class MainScreen extends AppCompatActivity {
@@ -78,16 +78,15 @@ public class MainScreen extends AppCompatActivity {
 //        });
 //    }
 
-    SimpleAdapter adapter;
-    GridView gridView;
-    private  int flag=0;//控制主菜单显示几个导航栏参数
+    private SimpleAdapter adapter;
+    private GridView gridView;
     private List<Map<String, Object>> data_list;
+
     User user = null;
     private LinearLayout tab_order, tab_check, tab_register, tab_help;
 
-    private int[] icon = {R.drawable.login, R.drawable.help,
-            R.drawable.order, R.drawable.lookorder};
-    private String[] iconName = {"注册/登录", "系统帮助","点菜", "查看订单" };
+    private int[] icon = {R.drawable.login, R.drawable.help, R.drawable.order, R.drawable.lookorder};
+    private String[] iconName = {"注册/登录", "系统帮助", "点菜", "查看订单"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,14 +94,12 @@ public class MainScreen extends AppCompatActivity {
         Intent intent = getIntent();
         String info = intent.getStringExtra("info");
         setContentView(R.layout.mainscreen);
-        Toast.makeText(getApplicationContext(), "" + info, Toast.LENGTH_SHORT).show();
-
+        //Toast.makeText(getApplicationContext(), "" + info, Toast.LENGTH_SHORT).show();
         gridView = (GridView) findViewById(R.id.gridview);
 
         String[] from = {"image", "name"};
         int[] to = {R.id.image, R.id.gridname};
         data_list = new ArrayList<Map<String, Object>>();
-
         adapter = new SimpleAdapter(this, data_list, R.layout.main_item, from, to);
         //配置适配器
         gridView.setAdapter(adapter);
@@ -112,30 +109,30 @@ public class MainScreen extends AppCompatActivity {
                 switch (position) {
                     case 2: {//点菜
                         Log.d(TAG, "onItemClick:case 2 点菜");
-//                        Intent intent = new Intent(MainScreen.this, FoodView.class);
-//                        Bundle bundle = new Bundle();
-//                        //bundle.putSerializable("user",user);
-//                        intent.putExtras(bundle);
-//                        startActivity(intent);
+                        Intent intent = new Intent(MainScreen.this, FoodView.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("user",user);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                         break;
                     }
-                    case 3:{//查看已经点的菜
-                        Log.d(TAG, "onItemClick: case 3 查看点菜");
-//                        Intent intent = new Intent(MainScreen.this, FoodOrderView.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable("user",user);
-//                        intent.putExtras(bundle);
-//                        startActivity(intent);
+                    case 3: {//查看已经点的菜
+                        Log.i(TAG, "onItemClick: case 3 查看点菜");
+                        Intent intent = new Intent(MainScreen.this, FoodOrderView.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("user",user);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                         break;
                     }
                     case 0: {//登录注册
-                        Log.d(TAG, "onItemClick: case 0 登录注册");
+                        Log.i(TAG, "onItemClick: case 0 登录注册");
                         Intent intent = new Intent(MainScreen.this, LoginOrRegister.class);
                         startActivity(intent);
                         break;
                     }
-                    case 1:{//帮助
-                        Log.d(TAG, "onItemClick: case1  帮助");
+                    case 1: {//帮助
+                        Log.i(TAG, "onItemClick: case 1  帮助");
 //                        Intent intent = new Intent(MainScreen.this, FoodDetailed.class);
 //                        startActivity(intent);
                         break;
@@ -163,14 +160,12 @@ public class MainScreen extends AppCompatActivity {
         }
     }
 
-    public List<Map<String, Object>> showItems(int i) {//要展示的导航栏的数量
-        this.flag=i;
-        for (int j=0; j< i; j++) {
+    public void showItems(int i) {//要展示的导航栏的数量
+        for (int j = 0; j < i; j++) {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("image", icon[j]);
             map.put("name", iconName[j]);
-            data_list.add(map);
+            this.data_list.add(map);
         }
-        return data_list;
     }
 }

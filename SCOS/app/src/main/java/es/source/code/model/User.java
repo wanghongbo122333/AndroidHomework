@@ -7,17 +7,16 @@ import java.io.Serializable;
  */
 
 public class User implements Serializable {
+    private String userName;
+    private String password;
+    private Boolean isOldUser;
 
-    String userName;
-    String password;
-    Boolean  isOldUser;
-
-    public User(String name,String pwd,Boolean bool){
-        this.userName=name;
-        this.password=pwd;
-        this.isOldUser=bool;
-
+    public User(String name, String pwd, Boolean bool) {
+        this.userName = name;
+        this.password = pwd;
+        this.isOldUser = bool;
     }
+
     public String getPassword() {
         return password;
     }
