@@ -17,16 +17,16 @@ import es.source.code.activity.R;
  * Created by WangHongbo on 2018/10/11.
  */
 
-public class NoOrderConfAdapter extends ArrayAdapter<AlreadyOrderConf> {
+public class NoOrderFoodAdapter extends ArrayAdapter<AlreadyOrderFood> {
     private int resourceId;
-    public NoOrderConfAdapter(Context context, int textViewResourceId, List<AlreadyOrderConf> objects) {
+    public NoOrderFoodAdapter(Context context, int textViewResourceId, List<AlreadyOrderFood> objects) {
         super(context, textViewResourceId, objects);
         resourceId = textViewResourceId;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        AlreadyOrderConf AlreadyOrderConf = getItem(position);
+        AlreadyOrderFood AlreadyOrderFood = getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
         final TextView nameview = (TextView) view.findViewById(R.id.name);
         final TextView priceview = (TextView) view.findViewById(R.id.price);
@@ -35,16 +35,16 @@ public class NoOrderConfAdapter extends ArrayAdapter<AlreadyOrderConf> {
         final Button notorderbtu = (Button) view.findViewById(R.id.notorder);
 
         nameview.setTextSize(18);
-        nameview.setText(AlreadyOrderConf.getName());
+        nameview.setText(AlreadyOrderFood.getName());
 
         priceview.setTextSize(18);
-        priceview.setText(AlreadyOrderConf.getPrice());
+        priceview.setText(AlreadyOrderFood.getPrice());
 
         numberview.setTextSize(18);
-        numberview.setText(AlreadyOrderConf.getNumber());
+        numberview.setText(AlreadyOrderFood.getNumber());
 
         remarksview.setTextSize(18);
-        remarksview.setText(AlreadyOrderConf.getRemarks());
+        remarksview.setText(AlreadyOrderFood.getRemarks());
 
         notorderbtu.setTextSize(18);
         notorderbtu.setText("退点");

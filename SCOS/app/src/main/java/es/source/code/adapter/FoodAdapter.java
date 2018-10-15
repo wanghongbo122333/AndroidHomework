@@ -21,7 +21,7 @@ import es.source.code.model.Food;
  * Created by WangHongbo on 2018/10/11.
  */
 
-public class ConfAdapter extends ArrayAdapter<Conf> {
+public class FoodAdapter extends ArrayAdapter<Food> {
     private int resourceId;
     private Context context;
 
@@ -30,7 +30,7 @@ public class ConfAdapter extends ArrayAdapter<Conf> {
 //    SharedPreferences sp= context.getSharedPreferences("config", Context.MODE_PRIVATE);
 //    SharedPreferences.Editor editor = sp.edit();
 
-    public ConfAdapter(Context context, int textViewResourceId, List<Conf> objects) {
+    public FoodAdapter(Context context, int textViewResourceId, List<Food> objects) {
         super(context, textViewResourceId, objects);
         this.resourceId = textViewResourceId;
         this.context = context;
@@ -38,20 +38,26 @@ public class ConfAdapter extends ArrayAdapter<Conf> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final Conf conf = getItem(position);
+        final Food currentfood = getItem(position);
         View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
         final TextView nameview = (TextView) view.findViewById(R.id.name);
         TextView priceview = (TextView) view.findViewById(R.id.price);
         final Button choosebtu = (Button) view.findViewById(R.id.choose);
 
         nameview.setTextSize(18);
-        nameview.setText(conf.getName());
+        nameview.setText(currentfood.getName());
 
         priceview.setTextSize(18);
-        priceview.setText(conf.getPrice());
+        priceview.setText(String.valueOf(currentfood.getPrice()));
 
         choosebtu.setTextSize(18);
-        choosebtu.setText(conf.getChoose());
+        if (currentfood.getIsReturnable()){//菜品一开始都是不可退的
+            choosebtu.setText("退菜");
+        }
+        else {
+            choosebtu.setText("点菜");
+        }
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,12 +68,24 @@ public class ConfAdapter extends ArrayAdapter<Conf> {
         choosebtu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                conf.setChoose("退点");
+            if(currentfood.getIsReturnable()){//如果是可退的，说明当前已经点击的按钮是退菜按钮
+                choosebtu.setText("点菜");
+                currentfood.setIsReturnable(false);//当前菜品已经点菜，也就可以退菜
+                Toast.makeText(getContext(), nameview.getText() + " 退菜成功", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                choosebtu.setText("退菜");
+                currentfood.setIsReturnable(true);
                 Toast.makeText(getContext(), nameview.getText() + " 点菜成功", Toast.LENGTH_SHORT).show();
-                Food food = new Food();
-                food.setFoodName(nameview.getText().toString());
-                food.setFoodPrice(nameview.getText().toString());
+            }
+
+
+
+
+                //下面应该处理传递点菜的数据了
+//                Food food = new Food();
+//                food.setFoodName(nameview.getText().toString());
+//                food.setFoodPrice(Integer.parseInt(nameview.getText().toString()));
 
 //                String myfood = food.toString();
 //                list.add(myfood);
@@ -77,8 +95,6 @@ public class ConfAdapter extends ArrayAdapter<Conf> {
 //                    editor.putString("item_"+i, list.get(i));
 //                }
 //                editor.commit();
-
-                choosebtu.setText("退点");
             }
         });
 

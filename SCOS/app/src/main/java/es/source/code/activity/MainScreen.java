@@ -100,8 +100,6 @@ public class MainScreen extends AppCompatActivity {
             showItems(4);
 
             Toast.makeText(getApplicationContext(), "欢迎您成为SCOS新用户", Toast.LENGTH_SHORT).show();
-            //  user = (User) bundle.getSerializable("user");
-            //Toast.makeText(getApplicationContext(),user.getUserName(),Toast.LENGTH_SHORT).show();
         }
         if ("Return".equals(info)) {
             showItems(2);

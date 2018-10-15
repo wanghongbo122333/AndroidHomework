@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.source.code.model.Food;
 import es.source.code.fragment.CuisineFragment;
 import es.source.code.model.User;
 
@@ -23,11 +24,12 @@ import es.source.code.model.User;
  */
 
 public class FoodView extends AppCompatActivity {
-    ViewPager viewPager;
+    private ViewPager viewPager;
     List<CuisineFragment> fragmentList = new ArrayList<>();
-    ViewPageAdapter adapter;
+    private ViewPageAdapter adapter;
     TabLayout tabLayout;
     private User currentUser = null;
+//    private android.support.v4.app.FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +40,8 @@ public class FoodView extends AppCompatActivity {
         //获取当前的用户信息
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        try {
-            this.currentUser = (User) bundle.getSerializable("user");
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+        this.currentUser = (User) bundle.getSerializable("user");
+
 
         //一般来说能进入该页面，说明已经登录或者注册了，已经有user信息
         if (currentUser != null)
@@ -51,13 +50,43 @@ public class FoodView extends AppCompatActivity {
             Toast.makeText(this, "未注册", Toast.LENGTH_SHORT).show();
         }
 
-        fragmentList.add(new CuisineFragment("冷菜"));
-        fragmentList.add(new CuisineFragment("热菜"));
-        fragmentList.add(new CuisineFragment("海鲜"));
-        fragmentList.add(new CuisineFragment("酒水"));
+        //初始化菜单
+        ArrayList<Food> coodDishes=new ArrayList<Food>();
+        ArrayList<Food> hotDishes=new ArrayList<Food>();
+        ArrayList<Food> seaFood=new ArrayList<Food>();
+        ArrayList<Food> drinks=new ArrayList<Food>();
 
+        coodDishes.add(new Food("凉皮1",25));
+        coodDishes.add(new Food("凉皮1",25));
+        coodDishes.add(new Food("凉皮1",25));
+        coodDishes.add(new Food("凉皮1",25));
+
+        hotDishes.add(new Food("大盘鸡1",48));
+        hotDishes.add(new Food("大盘鸡1",48));
+        hotDishes.add(new Food("大盘鸡1",48));
+        hotDishes.add(new Food("大盘鸡1",48));
+
+
+        seaFood.add(new Food("大闸蟹1",256));
+        seaFood.add(new Food("大闸蟹1",256));
+        seaFood.add(new Food("大闸蟹1",256));
+        seaFood.add(new Food("大闸蟹1",256));
+
+        drinks.add(new Food("茅台1",2562));
+        drinks.add(new Food("茅台1",2562));
+        drinks.add(new Food("茅台1",2562));
+
+
+        fragmentList.add(new CuisineFragment("冷菜",coodDishes));
+        fragmentList.add(new CuisineFragment("热菜",hotDishes));
+        fragmentList.add(new CuisineFragment("海鲜",seaFood));
+        fragmentList.add(new CuisineFragment("酒水",drinks));
+
+//        fm = getSupportFragmentManager();
         adapter = new ViewPageAdapter(getSupportFragmentManager());
+
         viewPager.setAdapter(adapter);
+
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }

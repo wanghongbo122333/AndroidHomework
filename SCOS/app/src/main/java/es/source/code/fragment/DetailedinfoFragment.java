@@ -13,21 +13,32 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import es.source.code.activity.R;
+import es.source.code.model.Food;
 
 /**
  * Created by WangHongbo on 2018/10/11.
  */
 
 public class DetailedinfoFragment extends Fragment {
+    private ArrayList<Food> foods;
+    private  String title;
     Context mContext;
     ImageView food_image;
     TextView food_name, food_price;
     EditText food_remarks;
     Button food_order;
+    private View view;
 
     public DetailedinfoFragment() {
 
+    }
+
+    @Override
+    public void setArguments(@Nullable Bundle args) {
+        super.setArguments(args);
     }
 
     @Override
@@ -40,28 +51,25 @@ public class DetailedinfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.detailed_info_conf_item, container, false);
+        view = inflater.inflate(R.layout.food_detail_item, container, false);
+        return view;
+    }
 
-
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
         food_image = (ImageView) view.findViewById(R.id.food_image);
         food_name = (TextView) view.findViewById(R.id.food_name);
         food_price = (TextView) view.findViewById(R.id.food_price);
         food_remarks = (EditText) view.findViewById(R.id.food_remarks);
         food_order = (Button) view.findViewById(R.id.food_order);
 
-        Drawable drawable = getResources().getDrawable(R.drawable.food_1);
-        food_image.setBackgroundDrawable(drawable);
+//         Drawable drawable = getResources().getDrawable(R.drawable.food_1);
+        food_image.setImageResource(R.drawable.help);
         food_name.setText("心灵鸡汤");
         food_price.setText("25元");
         food_remarks.setHint(" ");//备注
-        food_order.setText("退点");
-
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        food_order.setText("点菜");
 //        textView.setText(content);
     }
 }

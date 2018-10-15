@@ -13,9 +13,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.source.code.activity.R;
-import es.source.code.fragment.OptionFragment;
-import es.source.code.fragment.OptionNotFragment;
+import es.source.code.fragment.BillFragment;
+import es.source.code.fragment.OrderFragment;
 import es.source.code.model.User;
 
 /**
@@ -31,6 +30,7 @@ public class FoodOrderView extends AppCompatActivity {
 
     User user = null;
     String action;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +42,13 @@ public class FoodOrderView extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         action = bundle.getString("action");
-        if(action == null){
+        if (action == null) {//这里如果没有定义动作，默认设置成为action_already，去往已下单的菜
             action = "action_already";
         }
 
         user = (User) bundle.getSerializable("user");
-        if(user != null)
-            Toast.makeText(this, ""+user.getUserName(), Toast.LENGTH_SHORT).show();
+        if (user != null)
+            Toast.makeText(this, "" + user.getUserName(), Toast.LENGTH_SHORT).show();
         else {
             Toast.makeText(this, "未注册，请注册！", Toast.LENGTH_SHORT).show();
         }
@@ -56,9 +56,10 @@ public class FoodOrderView extends AppCompatActivity {
         adapter = new ViewPageAdapter(getSupportFragmentManager(), user);
 
         viewpage.setAdapter(adapter);
-        if(action.equals("action_already")){
+        if (action.equals("action_already")) {
             viewpage.setCurrentItem(0);
-        }if(action.equals("action_check")){
+        }
+        if (action.equals("action_check")) {
             viewpage.setCurrentItem(1);
         }
         tabLayout.setupWithViewPager(viewpage);
@@ -70,26 +71,30 @@ public class FoodOrderView extends AppCompatActivity {
 
         private String[] mTitles = new String[]{"未下单菜", "已下单菜"};
         private User user;
+
         public ViewPageAdapter(FragmentManager fm, User user) {
             super(fm);
             this.user = user;
         }
+
         @Override
         public Fragment getItem(int position) {
 //            return (Fragment)fragmentList.get(position);
             if (position == 0) {
-                return new OptionNotFragment();
-//                return new OptionNotFragment();
+                return new OrderFragment();
+//                return new OrderFragment();
             } else if (position == 1) {
-                return new OptionFragment(user);
-//                return new OptionFragment();
+                return new BillFragment(user);
+//                return new BillFragment();
             }
-            return new OptionFragment();
+            return new BillFragment();
         }
+
         @Override
         public int getCount() {
             return mTitles.length;
         }
+
         @Override
         public CharSequence getPageTitle(int position) {
             return mTitles[position];

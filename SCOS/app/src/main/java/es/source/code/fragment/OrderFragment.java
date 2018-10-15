@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.source.code.activity.R;
-import es.source.code.adapter.AlreadyOrderConf;
-import es.source.code.adapter.NoOrderConfAdapter;
+import es.source.code.adapter.AlreadyOrderFood;
+import es.source.code.adapter.NoOrderFoodAdapter;
 
 /**
  * Created by WangHongbo on 2018/10/11.
@@ -25,10 +25,10 @@ import es.source.code.adapter.NoOrderConfAdapter;
 /**
  * 已经点了，但是没有下单的菜
  */
-public class OptionNotFragment extends Fragment {
+public class OrderFragment extends Fragment {
     Context mContext;
     TextView textView;
-    public OptionNotFragment() {
+    public OrderFragment() {
 
     }
     @Override
@@ -43,27 +43,25 @@ public class OptionNotFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.list_view,container,false);
 
-        List<AlreadyOrderConf> list = new ArrayList<>();
-
-
-        AlreadyOrderConf tex1 = new AlreadyOrderConf("红烧鸡", "21元", "1份", "备注");
+        List<AlreadyOrderFood> list = new ArrayList<>();
+        AlreadyOrderFood tex1 = new AlreadyOrderFood("红烧鸡", "21元", "1份", "备注");
         list.add(tex1);
-        AlreadyOrderConf tex2 = new AlreadyOrderConf("白烧鸡", "23元", "1份", "备注");
+        AlreadyOrderFood tex2 = new AlreadyOrderFood("白烧鸡", "23元", "1份", "备注");
         list.add(tex2);
-        AlreadyOrderConf tex3 = new AlreadyOrderConf("叫花鸡", "24元", "1份", "备注");
+        AlreadyOrderFood tex3 = new AlreadyOrderFood("叫花鸡", "24元", "1份", "备注");
         list.add(tex3);
-        AlreadyOrderConf tex4 = new AlreadyOrderConf("白斩鸡", "21元", "1份", "备注");
+        AlreadyOrderFood tex4 = new AlreadyOrderFood("白斩鸡", "21元", "1份", "备注");
         list.add(tex4);
-        AlreadyOrderConf tex5 = new AlreadyOrderConf("清蒸鸡", "24元", "1份", "备注");
+        AlreadyOrderFood tex5 = new AlreadyOrderFood("清蒸鸡", "24元", "1份", "备注");
         list.add(tex5);
 
 
-        NoOrderConfAdapter adapter = new NoOrderConfAdapter(getActivity(), R.layout.no_order_conf_item, list);
+        NoOrderFoodAdapter adapter = new NoOrderFoodAdapter(getActivity(), R.layout.no_order_conf_item, list);
         ListView listView = (ListView) view.findViewById(R.id.listview);
 
         LinearLayout linearLayout = (LinearLayout)view.findViewById(R.id.bottom);
         LinearLayout linearLayout_1 = (LinearLayout)view.findViewById(R.id.bottom_1);
-        linearLayout.setVisibility(View.GONE);
+        linearLayout.setVisibility(View.VISIBLE);
         linearLayout_1.setVisibility(View.VISIBLE);
 
         listView.setAdapter(adapter);

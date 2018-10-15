@@ -4,13 +4,13 @@ package es.source.code.adapter;
  * Created by WangHongbo on 2018/10/11.
  */
 
-public class AlreadyOrderConf {
+public class AlreadyOrderFood {
     private String name;//菜名
     private String price;//价格
     private String number;//数量
     private String remarks;//评价
 
-    public AlreadyOrderConf(String name, String price, String number, String remarks) {
+    public AlreadyOrderFood(String name, String price, String number, String remarks) {
         this.name = name;
         this.price = price;
         this.number = number;
