@@ -2,6 +2,8 @@ package es.source.code.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.source.code.activity.R;
 import es.source.code.activity.FoodDetailed;
+import es.source.code.activity.R;
 import es.source.code.model.Food;
+import es.source.code.model.OrderItem;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by WangHongbo on 2018/10/11.
@@ -24,65 +29,76 @@ import es.source.code.model.Food;
 public class FoodAdapter extends ArrayAdapter<Food> {
     private int resourceId;
     private Context context;
+    List<OrderItem> orderList;//存储点的菜
 
-    List<String> list = new ArrayList<String>();
-
-//    SharedPreferences sp= context.getSharedPreferences("config", Context.MODE_PRIVATE);
-//    SharedPreferences.Editor editor = sp.edit();
 
     public FoodAdapter(Context context, int textViewResourceId, List<Food> objects) {
         super(context, textViewResourceId, objects);
         this.resourceId = textViewResourceId;
         this.context = context;
+        this.orderList = new ArrayList<>();
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         final Food currentfood = getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
-        final TextView nameview = (TextView) view.findViewById(R.id.name);
-        TextView priceview = (TextView) view.findViewById(R.id.price);
-        final Button choosebtu = (Button) view.findViewById(R.id.choose);
-
-        nameview.setTextSize(18);
-        nameview.setText(currentfood.getName());
-
-        priceview.setTextSize(18);
-        priceview.setText(String.valueOf(currentfood.getPrice()));
-
-        choosebtu.setTextSize(18);
-        if (currentfood.getIsReturnable()){//菜品一开始都是不可退的
-            choosebtu.setText("退菜");
+        View view;
+        final ViewHolder viewHolder;
+        if (convertView == null) {
+            view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.choosebtu = view.findViewById(R.id.choose);
+            viewHolder.nameview = view.findViewById(R.id.name);
+            viewHolder.priceview = view.findViewById(R.id.price);
+            view.setTag(viewHolder);
+        } else {
+            view = convertView;
+            viewHolder = (ViewHolder) view.getTag();
         }
-        else {
-            choosebtu.setText("点菜");
-        }
+        if (currentfood != null) {
+            viewHolder.nameview.setTextSize(18);
+            viewHolder.nameview.setText(currentfood.getName());
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, FoodDetailed.class);
-                context.startActivity(intent);
-            }
-        });
-        choosebtu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            if(currentfood.getIsReturnable()){//如果是可退的，说明当前已经点击的按钮是退菜按钮
-                choosebtu.setText("点菜");
-                currentfood.setIsReturnable(false);//当前菜品已经点菜，也就可以退菜
-                Toast.makeText(getContext(), nameview.getText() + " 退菜成功", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                choosebtu.setText("退菜");
-                currentfood.setIsReturnable(true);
-                Toast.makeText(getContext(), nameview.getText() + " 点菜成功", Toast.LENGTH_SHORT).show();
+            viewHolder.priceview.setTextSize(18);
+            viewHolder.priceview.setText(String.valueOf(currentfood.getPrice()));
+
+            viewHolder.choosebtu.setTextSize(18);
+
+
+            if (currentfood.getIsReturnable()) {//菜品一开始都是不可退的
+                viewHolder.choosebtu.setText("退菜");
+            } else {
+                viewHolder.choosebtu.setText("点菜");
             }
 
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, FoodDetailed.class);
+                    context.startActivity(intent);
+                }
+            });
+            viewHolder.choosebtu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (currentfood.getIsReturnable()) {//如果是可退的，说明当前已经点击的按钮是退菜按钮
+                        viewHolder.choosebtu.setText("点菜");
+                        currentfood.setIsReturnable(false);//当前菜品已经点菜，也就可以退菜
+                        Toast.makeText(getContext(), viewHolder.nameview.getText() + " 退菜成功", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "onClick:删除" + currentfood.getName());
+                        orderList.remove(findOrderItem(currentfood.getName()));//通过下标删除该菜
+                        Log.d(TAG, "onClick: 删除" + currentfood.getName());
+                        printItems();
+                    } else {
+                        viewHolder.choosebtu.setText("退菜");
+                        currentfood.setIsReturnable(true);
+                        Toast.makeText(getContext(), viewHolder.nameview.getText() + " 点菜成功", Toast.LENGTH_SHORT).show();
+                        orderList.add(new OrderItem(currentfood, 1, "备注1"));
+                        printItems();
+                    }
 
-
-
-                //下面应该处理传递点菜的数据了
+                    //下面应该处理传递点菜的数据了，传递该菜
 //                Food food = new Food();
 //                food.setFoodName(nameview.getText().toString());
 //                food.setFoodPrice(Integer.parseInt(nameview.getText().toString()));
@@ -95,9 +111,38 @@ public class FoodAdapter extends ArrayAdapter<Food> {
 //                    editor.putString("item_"+i, list.get(i));
 //                }
 //                editor.commit();
-            }
-        });
+                }
+            });
+        }
 
         return view;
+    }
+
+    /**
+     * 新建一个内部类ViewHolder
+     */
+    class ViewHolder {
+        TextView nameview;
+        TextView priceview;
+        Button choosebtu;
+
+    }
+
+    //查找该item,返回下标
+    public int findOrderItem(String name) {
+        for (int i = 0; i < orderList.size(); i++) {
+            if (orderList.get(i).getFood().getName().equals(name)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void printItems() {
+        Log.d(TAG, "当前已点" + this.orderList.size() + "个菜");
+        for (int i = 0; i < this.orderList.size(); i++) {
+            Log.d(TAG, "printItems: " + this.orderList.get(i).getFood().getName());
+        }
+
     }
 }

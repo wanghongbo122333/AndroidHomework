@@ -25,7 +25,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Boolean getOldUser() {
+    public Boolean getIsOldUser() {
         return isOldUser;
     }
 

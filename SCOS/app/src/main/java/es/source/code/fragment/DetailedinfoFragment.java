@@ -1,7 +1,6 @@
 package es.source.code.fragment;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,7 +23,7 @@ import es.source.code.model.Food;
 
 public class DetailedinfoFragment extends Fragment {
     private ArrayList<Food> foods;
-    private  String title;
+    private String title;
     Context mContext;
     ImageView food_image;
     TextView food_name, food_price;
@@ -50,13 +49,12 @@ public class DetailedinfoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.food_detail_item, container, false);
         return view;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState){
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         food_image = (ImageView) view.findViewById(R.id.food_image);
         food_name = (TextView) view.findViewById(R.id.food_name);

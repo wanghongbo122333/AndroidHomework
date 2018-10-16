@@ -73,8 +73,8 @@ public class CuisineFragment extends Fragment {
         List<Food> list = this.foodList;
         FoodAdapter adapter = new FoodAdapter(getActivity(), R.layout.food_item, list);
         ListView listView = (ListView) view.findViewById(R.id.listview);
-        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.bottom);
-        LinearLayout linearLayout_1 = (LinearLayout) view.findViewById(R.id.bottom_1);
+        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.submit_bottom);
+        LinearLayout linearLayout_1 = (LinearLayout) view.findViewById(R.id.pay_bottom);
         linearLayout.setVisibility(View.GONE);
         linearLayout_1.setVisibility(View.GONE);
         listView.setAdapter(adapter);

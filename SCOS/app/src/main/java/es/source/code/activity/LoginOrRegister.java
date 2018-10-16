@@ -65,7 +65,7 @@ public class LoginOrRegister extends AppCompatActivity {
                             pd.cancel();
                             String name = nameInput.getText().toString();
                             String pwd = pwdInput.getText().toString();
-                            User registerUser = new User(name, pwd, false);
+                            User registerUser = new User(name, pwd, true);
                             Log.d(TAG, "onClick: register");
                             //下面这里是隐式使用intent
                             Intent intent = new Intent("scos.intent.action.SCOSMAIN");//set Action

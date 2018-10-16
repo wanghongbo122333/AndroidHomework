@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -15,8 +16,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.source.code.model.Food;
 import es.source.code.fragment.CuisineFragment;
+import es.source.code.model.Food;
 import es.source.code.model.User;
 
 /**
@@ -24,9 +25,8 @@ import es.source.code.model.User;
  */
 
 public class FoodView extends AppCompatActivity {
-    private ViewPager viewPager;
+    private static final String TAG = "FoodView";
     List<CuisineFragment> fragmentList = new ArrayList<>();
-    private ViewPageAdapter adapter;
     TabLayout tabLayout;
     private User currentUser = null;
 //    private android.support.v4.app.FragmentManager fm;
@@ -35,12 +35,16 @@ public class FoodView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_view);
-        viewPager = findViewById(R.id.viewpager);
+        ViewPager viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.tabLayout);
         //获取当前的用户信息
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        this.currentUser = (User) bundle.getSerializable("user");
+        if (bundle != null) {
+            this.currentUser = (User) bundle.getSerializable("user");
+        } else {
+            Log.d(TAG, "onCreate:没有获取到bundle ");
+        }
 
 
         //一般来说能进入该页面，说明已经登录或者注册了，已经有user信息
@@ -51,39 +55,8 @@ public class FoodView extends AppCompatActivity {
         }
 
         //初始化菜单
-        ArrayList<Food> coodDishes=new ArrayList<Food>();
-        ArrayList<Food> hotDishes=new ArrayList<Food>();
-        ArrayList<Food> seaFood=new ArrayList<Food>();
-        ArrayList<Food> drinks=new ArrayList<Food>();
-
-        coodDishes.add(new Food("凉皮1",25));
-        coodDishes.add(new Food("凉皮1",25));
-        coodDishes.add(new Food("凉皮1",25));
-        coodDishes.add(new Food("凉皮1",25));
-
-        hotDishes.add(new Food("大盘鸡1",48));
-        hotDishes.add(new Food("大盘鸡1",48));
-        hotDishes.add(new Food("大盘鸡1",48));
-        hotDishes.add(new Food("大盘鸡1",48));
-
-
-        seaFood.add(new Food("大闸蟹1",256));
-        seaFood.add(new Food("大闸蟹1",256));
-        seaFood.add(new Food("大闸蟹1",256));
-        seaFood.add(new Food("大闸蟹1",256));
-
-        drinks.add(new Food("茅台1",2562));
-        drinks.add(new Food("茅台1",2562));
-        drinks.add(new Food("茅台1",2562));
-
-
-        fragmentList.add(new CuisineFragment("冷菜",coodDishes));
-        fragmentList.add(new CuisineFragment("热菜",hotDishes));
-        fragmentList.add(new CuisineFragment("海鲜",seaFood));
-        fragmentList.add(new CuisineFragment("酒水",drinks));
-
-//        fm = getSupportFragmentManager();
-        adapter = new ViewPageAdapter(getSupportFragmentManager());
+        initialMenu();
+        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(adapter);
 
@@ -127,6 +100,43 @@ public class FoodView extends AppCompatActivity {
                 return true;
         }
         return true;
+    }
+
+    /**
+     * 初始化菜单
+     */
+    public void initialMenu() {
+
+        ArrayList<Food> coodDishes = new ArrayList<>();
+        ArrayList<Food> hotDishes = new ArrayList<>();
+        ArrayList<Food> seaFood = new ArrayList<>();
+        ArrayList<Food> drinks = new ArrayList<>();
+
+        coodDishes.add(new Food("凉皮1", 25));
+        coodDishes.add(new Food("凉皮2", 25));
+        coodDishes.add(new Food("凉皮4", 25));
+        coodDishes.add(new Food("凉皮5", 25));
+
+        hotDishes.add(new Food("大盘鸡1", 48));
+        hotDishes.add(new Food("大盘鸡2", 48));
+        hotDishes.add(new Food("大盘鸡3", 48));
+        hotDishes.add(new Food("大盘鸡4", 48));
+
+
+        seaFood.add(new Food("大闸蟹1", 256));
+        seaFood.add(new Food("大闸蟹2", 256));
+        seaFood.add(new Food("大闸蟹3", 256));
+        seaFood.add(new Food("大闸蟹4", 256));
+
+        drinks.add(new Food("茅台1", 2562));
+        drinks.add(new Food("茅台1", 2562));
+        drinks.add(new Food("茅台1", 2562));
+
+
+        fragmentList.add(new CuisineFragment("冷菜", coodDishes));
+        fragmentList.add(new CuisineFragment("热菜", hotDishes));
+        fragmentList.add(new CuisineFragment("海鲜", seaFood));
+        fragmentList.add(new CuisineFragment("酒水", drinks));
     }
 
     class ViewPageAdapter extends FragmentPagerAdapter {

@@ -11,7 +11,7 @@
     </ListView>
 
     <LinearLayout
-        android:id="@+id/bottom"
+        android:id="@+id/pay_bottom"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:layout_margin="4dp"
@@ -37,22 +37,21 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/submit"
-            android:text="结账"
-            android:background="#45b97c"
-            android:layout_weight="1"
+            android:id="@+id/pay_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#45b97c"
+            android:text="结账" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/bottom_1"
+        android:id="@+id/submit_bottom"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:layout_margin="4dp"
         android:background="#666"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -74,12 +73,12 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/submit_1"
-            android:text="提交订单"
-            android:background="#45b97c"
-            android:layout_weight="1"
+            android:id="@+id/submit_order_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#45b97c"
+            android:text="提交订单" />
 
     </LinearLayout>
 </LinearLayout>

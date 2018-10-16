@@ -27,7 +27,6 @@ public class FoodOrderView extends AppCompatActivity {
     List list = new ArrayList();
     ViewPageAdapter adapter;
     TabLayout tabLayout;
-
     User user = null;
     String action;
 
@@ -38,15 +37,13 @@ public class FoodOrderView extends AppCompatActivity {
         viewpage = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         action = bundle.getString("action");
         if (action == null) {//这里如果没有定义动作，默认设置成为action_already，去往已下单的菜
             action = "action_already";
         }
-
-        user = (User) bundle.getSerializable("user");
+        user = (User) bundle.getSerializable("user");//获取用户信息
         if (user != null)
             Toast.makeText(this, "" + user.getUserName(), Toast.LENGTH_SHORT).show();
         else {
@@ -72,7 +69,7 @@ public class FoodOrderView extends AppCompatActivity {
         private String[] mTitles = new String[]{"未下单菜", "已下单菜"};
         private User user;
 
-        public ViewPageAdapter(FragmentManager fm, User user) {
+        private ViewPageAdapter(FragmentManager fm, User user) {
             super(fm);
             this.user = user;
         }
