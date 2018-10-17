@@ -21,7 +21,6 @@ import es.source.code.model.User;
  */
 
 public class LoginOrRegister extends AppCompatActivity {
-    private Button logBtn, backBtn, registerBtn;
     private EditText nameInput, pwdInput;
     private final String Reg = "[A-Za-z0-9]+";//只包含数字和字母
     private static final String TAG = "LoginOrRegister";
@@ -30,9 +29,9 @@ public class LoginOrRegister extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_or_register);
-        logBtn = findViewById(R.id.logBtn);
-        backBtn = findViewById(R.id.backBtn);
-        registerBtn = findViewById(R.id.registerBtn);
+        Button logBtn = findViewById(R.id.logBtn);
+        Button backBtn = findViewById(R.id.backBtn);
+        Button registerBtn = findViewById(R.id.registerBtn);
         nameInput = findViewById(R.id.nameInput);
         pwdInput = findViewById(R.id.pwdInput);
         //点击登录按钮
@@ -47,11 +46,11 @@ public class LoginOrRegister extends AppCompatActivity {
                 if (!matcher_name.matches()) nameInput.setError("输入内容不符合规则");
                 if (!matcher_pws.matches()) pwdInput.setError("输入内容不符合规则");
                 if (matcher_name.matches() && matcher_pws.matches()) {
-                    User loginUser = new User(name, pwd, true);
-                    Log.d(TAG, "onClick: login");
-                    Intent intent = new Intent("scos.intent.action.SCOSMAIN");
-                    intent.addCategory("scos.intent.category.SCOSLAUNCHER");
-                    intent.putExtra("info", "LoginSuccess");
+//                    User loginUser = new User(name, pwd, true);
+//                    Log.d(TAG, "onClick: login");
+//                    Intent intent = new Intent("scos.intent.action.SCOSMAIN");
+//                    intent.addCategory("scos.intent.category.SCOSLAUNCHER");
+//                    intent.putExtra("info", "LoginSuccess");
                     //progress对话框
                     final ProgressDialog pd = new ProgressDialog(LoginOrRegister.this);
                     pd.setTitle("努力加载中~~~");//设置一个标题
@@ -62,17 +61,18 @@ public class LoginOrRegister extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            pd.cancel();
+                            pd.cancel();//取消对话框
+                            //新建一个user对象并传递
                             String name = nameInput.getText().toString();
                             String pwd = pwdInput.getText().toString();
-                            User registerUser = new User(name, pwd, true);
-                            Log.d(TAG, "onClick: register");
+                            User loginUser = new User(name, pwd, true);
+                            Log.d(TAG, "onClick: login");
                             //下面这里是隐式使用intent
                             Intent intent = new Intent("scos.intent.action.SCOSMAIN");//set Action
                             intent.addCategory("scos.intent.category.SCOSLAUNCHER");//add category
                             intent.putExtra("info", "LoginSuccess");//putExtra使用键值对传数据
                             Bundle bundle = new Bundle();
-                            bundle.putSerializable("user", registerUser);//将该注册的用户对象存入bundle中
+                            bundle.putSerializable("user", loginUser);//将该注册的用户对象存入bundle中
                             intent.putExtras(bundle);//把bundle放进intent中
                             startActivity(intent);
                             Log.d(TAG, "run:  register success ");

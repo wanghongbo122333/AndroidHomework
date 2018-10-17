@@ -1,6 +1,7 @@
 package es.source.code.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,53 +21,80 @@ import es.source.code.model.OrderItem;
 
 public class NoOrderFoodAdapter extends ArrayAdapter<OrderItem> {
     private int resourceId;
+
     public NoOrderFoodAdapter(Context context, int textViewResourceId, List<OrderItem> objects) {
         super(context, textViewResourceId, objects);
         resourceId = textViewResourceId;
     }
 
+    @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        OrderItem orderItem  = getItem(position);
+        OrderItem orderItem = getItem(position);
+        View view;
+        final ViewHolder viewHolder;
+        if (convertView == null) {
+            view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+            TextView nameview = view.findViewById(R.id.name);
+            TextView priceview = view.findViewById(R.id.price);
+            TextView numberview = view.findViewById(R.id.number);
+            TextView remarksview = view.findViewById(R.id.remarks);
+            Button notorderbtu = view.findViewById(R.id.notorder);
+            viewHolder = new ViewHolder(nameview, priceview, numberview, remarksview, notorderbtu);
+            view.setTag(viewHolder);
+        } else {
+            view = convertView;
+            viewHolder = (ViewHolder) view.getTag();
+        }
+//        final TextView nameview = (TextView) view.findViewById(R.id.name);
+//        final TextView priceview = (TextView) view.findViewById(R.id.price);
+//        final TextView numberview = (TextView) view.findViewById(R.id.number);
+//        final TextView remarksview = (TextView) view.findViewById(R.id.remarks);
+//        final Button notorderbtu = (Button) view.findViewById(R.id.notorder);
+        if (orderItem != null) {
+            viewHolder.nameview.setTextSize(18);
+            viewHolder.nameview.setText(orderItem.getFood().getName());//菜名
 
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
-        final TextView nameview = (TextView) view.findViewById(R.id.name);
-        final TextView priceview = (TextView) view.findViewById(R.id.price);
-        final TextView numberview = (TextView) view.findViewById(R.id.number);
-        final TextView remarksview = (TextView) view.findViewById(R.id.remarks);
-        final Button notorderbtu = (Button) view.findViewById(R.id.notorder);
-        if(orderItem!=null){
-            nameview.setTextSize(18);
-            nameview.setText(orderItem.getFood().getName());//菜名
+            viewHolder.priceview.setTextSize(18);
+            viewHolder.priceview.setText(String.valueOf(orderItem.getFood().getPrice()));//价格int所以需要String.valueOf
 
-            priceview.setTextSize(18);
-            priceview.setText(String.valueOf(orderItem.getFood().getPrice()));//价格int所以需要String.valueOf
+            viewHolder.numberview.setTextSize(18);
+            viewHolder.numberview.setText(String.valueOf(orderItem.getAmount()));//数量
 
-            numberview.setTextSize(18);
-            numberview.setText(String.valueOf(orderItem.getAmount()));//数量
+            viewHolder.remarksview.setTextSize(18);
+            viewHolder.remarksview.setText(orderItem.getRemarks());//备注
 
-            remarksview.setTextSize(18);
-            remarksview.setText(orderItem.getRemarks());//备注
-
-            notorderbtu.setTextSize(18);
-            notorderbtu.setText("退点");
-            notorderbtu.setOnClickListener(new View.OnClickListener() {
+            viewHolder.notorderbtu.setTextSize(18);
+            viewHolder.notorderbtu.setText("退点");
+            viewHolder.notorderbtu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(),nameview.getText()+" 退点成功", Toast.LENGTH_SHORT).show();
-                    notorderbtu.setText("点菜");
+                    Toast.makeText(getContext(), viewHolder.nameview.getText() + " 退点成功", Toast.LENGTH_SHORT).show();
+                    viewHolder.notorderbtu.setText("点菜");
                 }
             });
-        }
-        else {
+        } else {
             //没点菜
-            nameview.setTextSize(18);
-            nameview.setText("暂时没有点菜");//菜名
+            viewHolder.nameview.setTextSize(18);
+            viewHolder.nameview.setText("暂时没有点菜");//菜名
         }
-
-
-
 
         return view;
+    }
+
+    class ViewHolder {
+        TextView nameview;
+        TextView priceview;
+        TextView numberview;
+        TextView remarksview;
+        Button notorderbtu;
+
+        ViewHolder(TextView nameview, TextView priceview, TextView numberview, TextView remarksview, Button notorderbtu) {
+            this.nameview = nameview;
+            this.priceview = priceview;
+            this.numberview = numberview;
+            this.remarksview = remarksview;
+            this.notorderbtu = notorderbtu;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package es.source.code.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,9 +33,20 @@ import static android.content.ContentValues.TAG;
 public class OrderFragment extends Fragment {
     Context mContext;
     private View view;
+    private List<OrderItem> userOrder = new ArrayList<>();//用户点的菜
 
-    public OrderFragment() {
+    public OrderFragment() {//无参构造函数
 
+    }
+
+    /**
+     * 有参数的构造函数，将用户点的菜传进来
+     *
+     * @param userOrder
+     */
+    @SuppressLint("ValidFragment")
+    public OrderFragment(List<OrderItem> userOrder) {
+        this.userOrder = userOrder;
     }
 
     @Override
@@ -54,7 +66,8 @@ public class OrderFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //初始化订单信息
-        List<OrderItem> list = initialOrder();
+//        List<OrderItem> list = initialOrder();
+        List<OrderItem> list = this.userOrder;
         //适配器配置
         NoOrderFoodAdapter adapter = new NoOrderFoodAdapter(getActivity(), R.layout.no_order_conf_item, list);
         ListView listView = view.findViewById(R.id.listview);

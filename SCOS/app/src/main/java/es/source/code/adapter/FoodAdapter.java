@@ -29,8 +29,11 @@ import static android.content.ContentValues.TAG;
 public class FoodAdapter extends ArrayAdapter<Food> {
     private int resourceId;
     private Context context;
-    List<OrderItem> orderList;//存储点的菜
+    private List<OrderItem> orderList;//存储点的菜
 
+    public List<OrderItem> getOrderList() {
+        return orderList;
+    }
 
     public FoodAdapter(Context context, int textViewResourceId, List<Food> objects) {
         super(context, textViewResourceId, objects);
@@ -71,7 +74,9 @@ public class FoodAdapter extends ArrayAdapter<Food> {
             } else {
                 viewHolder.choosebtu.setText("点菜");
             }
-
+            /**
+             * view中点击的其他部分点击查看菜品详情
+             */
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,7 +93,6 @@ public class FoodAdapter extends ArrayAdapter<Food> {
                         Toast.makeText(getContext(), viewHolder.nameview.getText() + " 退菜成功", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "onClick:删除" + currentfood.getName());
                         orderList.remove(findOrderItem(currentfood.getName()));//通过下标删除该菜
-                        Log.d(TAG, "onClick: 删除" + currentfood.getName());
                         printItems();
                     } else {
                         viewHolder.choosebtu.setText("退菜");
@@ -117,6 +121,7 @@ public class FoodAdapter extends ArrayAdapter<Food> {
 
         return view;
     }
+
 
     /**
      * 新建一个内部类ViewHolder

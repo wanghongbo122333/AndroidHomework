@@ -2,6 +2,7 @@ package es.source.code.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,18 +13,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import es.source.code.activity.R;
-import es.source.code.model.Food;
 
 /**
  * Created by WangHongbo on 2018/10/11.
  */
 
 public class DetailedinfoFragment extends Fragment {
-    private ArrayList<Food> foods;
-    private String title;
+
     Context mContext;
     ImageView food_image;
     TextView food_name, food_price;
@@ -48,7 +45,7 @@ public class DetailedinfoFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.food_detail_item, container, false);
         return view;
     }
@@ -56,11 +53,11 @@ public class DetailedinfoFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        food_image = (ImageView) view.findViewById(R.id.food_image);
-        food_name = (TextView) view.findViewById(R.id.food_name);
-        food_price = (TextView) view.findViewById(R.id.food_price);
-        food_remarks = (EditText) view.findViewById(R.id.food_remarks);
-        food_order = (Button) view.findViewById(R.id.food_order);
+        food_image = view.findViewById(R.id.food_image);
+        food_name = view.findViewById(R.id.food_name);
+        food_price = view.findViewById(R.id.food_price);
+        food_remarks = view.findViewById(R.id.food_remarks);
+        food_order = view.findViewById(R.id.food_order);
 
 //         Drawable drawable = getResources().getDrawable(R.drawable.food_1);
         food_image.setImageResource(R.drawable.help);

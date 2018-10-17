@@ -10,11 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import es.source.code.fragment.BillFragment;
 import es.source.code.fragment.OrderFragment;
+import es.source.code.model.OrderItem;
 import es.source.code.model.User;
 
 /**
@@ -23,12 +23,12 @@ import es.source.code.model.User;
 
 public class FoodOrderView extends AppCompatActivity {
     ViewPager viewpage;
-    List fragmentList = new ArrayList<>();
-    List list = new ArrayList();
     ViewPageAdapter adapter;
     TabLayout tabLayout;
     User user = null;
     String action;
+    private List<OrderItem> userOrder;//用户点的菜，需要传给OrderFragment
+    private  List<OrderItem> billOrder;//已经出账的菜，传给BillFragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,6 @@ public class FoodOrderView extends AppCompatActivity {
         }
         tabLayout.setupWithViewPager(viewpage);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);//固定
-//        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);//滑动
     }
 
     class ViewPageAdapter extends FragmentPagerAdapter {

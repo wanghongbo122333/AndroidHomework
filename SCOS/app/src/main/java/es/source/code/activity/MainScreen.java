@@ -1,16 +1,13 @@
 package es.source.code.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -27,14 +24,10 @@ import es.source.code.model.User;
 
 public class MainScreen extends AppCompatActivity {
     private static final String TAG = "MainScreen";
-    private SimpleAdapter adapter;
-    private GridView gridView;
     private List<Map<String, Object>> data_list;
     private User currentUser = null;
-    private LinearLayout tab_order, tab_check, tab_register, tab_help;
     private int[] icon = {R.drawable.login, R.drawable.help, R.drawable.order, R.drawable.lookorder};
     private String[] iconName = {"注册/登录", "系统帮助", "点菜", "查看订单"};
-    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +35,15 @@ public class MainScreen extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainscreen);
-        this.intent = getIntent();
+        Intent intent = getIntent();
         String info = intent.getStringExtra("info");//获取info信息
         //获取当前的用户信息
         this.currentUser = (User) intent.getSerializableExtra("user");
-        gridView = (GridView) findViewById(R.id.gridview);
+        GridView gridView = findViewById(R.id.gridview);
         String[] from = {"image", "name"};
         int[] to = {R.id.image, R.id.gridname};
-        data_list = new ArrayList<Map<String, Object>>();
-        adapter = new SimpleAdapter(this, data_list, R.layout.main_item, from, to);
+        data_list = new ArrayList<>();
+        SimpleAdapter adapter = new SimpleAdapter(this, data_list, R.layout.main_item, from, to);
         //配置适配器
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

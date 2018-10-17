@@ -12,73 +12,80 @@
 
     <LinearLayout
         android:id="@+id/pay_bottom"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:layout_margin="4dp"
-        android:background="#666"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/background_light"
+        android:backgroundTint="@android:color/background_light"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/total"
-            android:text="共2份"
-            android:layout_gravity="center"
-            android:textSize="16dp"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="共2份"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/totalprice"
-            android:text="总价44元"
-            android:layout_gravity="center"
-            android:textSize="16dp"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="总价44元"
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/pay_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#45b97c"
-            android:text="结账" />
+            android:background="@android:color/holo_red_dark"
+            android:text="结账"
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/submit_bottom"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:layout_margin="4dp"
-        android:background="#666"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/background_light"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/total_1"
-            android:text="共5份"
-            android:layout_gravity="center"
-            android:textSize="16dp"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="共5份"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/totalprice_1"
-            android:text="总价113元"
-            android:layout_gravity="center"
-            android:textSize="16dp"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="总价113元"
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/submit_order_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#45b97c"
-            android:text="提交订单" />
+            android:background="@android:color/holo_red_dark"
+            android:text="提交订单"
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 </LinearLayout>

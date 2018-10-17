@@ -3,9 +3,6 @@ package es.source.code.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,8 +13,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.source.code.adapter.Menu_ViewPagerAdapter;
 import es.source.code.fragment.CuisineFragment;
 import es.source.code.model.Food;
+import es.source.code.model.OrderItem;
 import es.source.code.model.User;
 
 /**
@@ -27,9 +26,9 @@ import es.source.code.model.User;
 public class FoodView extends AppCompatActivity {
     private static final String TAG = "FoodView";
     List<CuisineFragment> fragmentList = new ArrayList<>();
+    List<OrderItem> userOrder=new ArrayList<>();//用于存储用户点的菜
     TabLayout tabLayout;
     private User currentUser = null;
-//    private android.support.v4.app.FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +55,10 @@ public class FoodView extends AppCompatActivity {
 
         //初始化菜单
         initialMenu();
-        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager());
-
+        //设置fragment
+        Menu_ViewPagerAdapter adapter = new Menu_ViewPagerAdapter(getSupportFragmentManager(), this.fragmentList);
         viewPager.setAdapter(adapter);
-
+        //设置tablayout
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
     }
@@ -137,26 +136,5 @@ public class FoodView extends AppCompatActivity {
         fragmentList.add(new CuisineFragment("热菜", hotDishes));
         fragmentList.add(new CuisineFragment("海鲜", seaFood));
         fragmentList.add(new CuisineFragment("酒水", drinks));
-    }
-
-    class ViewPageAdapter extends FragmentPagerAdapter {
-        public ViewPageAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return fragmentList.get(position).getTitle();
-        }
     }
 }
