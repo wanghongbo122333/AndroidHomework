@@ -10,10 +10,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.source.code.fragment.BillFragment;
 import es.source.code.fragment.OrderFragment;
+import es.source.code.model.MyApplication;
 import es.source.code.model.OrderItem;
 import es.source.code.model.User;
 
@@ -39,6 +41,7 @@ public class FoodOrderView extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        userOrder = (ArrayList<OrderItem>)getIntent().getSerializableExtra("userOrder");//获取用户点的菜
         action = bundle.getString("action");
         if (action == null) {//这里如果没有定义动作，默认设置成为action_already，去往已下单的菜
             action = "action_already";
@@ -73,15 +76,13 @@ public class FoodOrderView extends AppCompatActivity {
             this.user = user;
         }
 
+
         @Override
         public Fragment getItem(int position) {
-//            return (Fragment)fragmentList.get(position);
             if (position == 0) {
-                return new OrderFragment();
-//                return new OrderFragment();
+                return new OrderFragment(user);
             } else if (position == 1) {
                 return new BillFragment(user);
-//                return new BillFragment();
             }
             return new BillFragment();
         }

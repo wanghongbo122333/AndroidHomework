@@ -3,6 +3,7 @@ package es.source.code.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -17,25 +18,24 @@ import es.source.code.model.OrderItem;
 
 public class Menu_ViewPagerAdapter extends FragmentPagerAdapter {
     private List<CuisineFragment> fragmentList;//含有一个fragmentList
-//    private  List<OrderItem> userOrder;//点的所有的菜，包括所有的类型的菜
+    private static final String TAG = "Menu_ViewPagerAdapter";
+
+    private List<OrderItem> userOrder;//点的所有的菜，包括所有的类型的菜
+
     public Menu_ViewPagerAdapter(FragmentManager fm, List<CuisineFragment> fragmentList) {
+
         super(fm);
         this.fragmentList = fragmentList;
-//        this.userOrder=new ArrayList<>();
+        Log.d(TAG, "Menu_ViewPagerAdapter: 初始化");
+        this.userOrder = new ArrayList<>();
     }
 
     @Override
     public Fragment getItem(int position) {
         return fragmentList.get(position);
     }
-    public List<OrderItem> getUserOrder(){
-        List<OrderItem> allItem =new ArrayList<>();
-        for(int i=0;i<fragmentList.size();i++) {
-            allItem.addAll(fragmentList.get(i).getUserOrder());
-        }
-        return  allItem;
 
-    }
+
 
     @Override
     public int getCount() {

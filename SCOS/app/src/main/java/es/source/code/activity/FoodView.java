@@ -27,6 +27,7 @@ public class FoodView extends AppCompatActivity {
     private static final String TAG = "FoodView";
     List<CuisineFragment> fragmentList = new ArrayList<>();
     List<OrderItem> userOrder=new ArrayList<>();//用于存储用户点的菜
+    private  Menu_ViewPagerAdapter menu_viewPagerAdapter;
     TabLayout tabLayout;
     private User currentUser = null;
 
@@ -56,8 +57,9 @@ public class FoodView extends AppCompatActivity {
         //初始化菜单
         initialMenu();
         //设置fragment
-        Menu_ViewPagerAdapter adapter = new Menu_ViewPagerAdapter(getSupportFragmentManager(), this.fragmentList);
-        viewPager.setAdapter(adapter);
+        menu_viewPagerAdapter = new Menu_ViewPagerAdapter(getSupportFragmentManager(), this.fragmentList);
+
+        viewPager.setAdapter(menu_viewPagerAdapter);
         //设置tablayout
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);

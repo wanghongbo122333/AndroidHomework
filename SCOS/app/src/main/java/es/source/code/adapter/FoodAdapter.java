@@ -18,6 +18,7 @@ import java.util.List;
 import es.source.code.activity.FoodDetailed;
 import es.source.code.activity.R;
 import es.source.code.model.Food;
+import es.source.code.model.MyApplication;
 import es.source.code.model.OrderItem;
 
 import static android.content.ContentValues.TAG;
@@ -92,29 +93,16 @@ public class FoodAdapter extends ArrayAdapter<Food> {
                         currentfood.setIsReturnable(false);//当前菜品已经点菜，也就可以退菜
                         Toast.makeText(getContext(), viewHolder.nameview.getText() + " 退菜成功", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "onClick:删除" + currentfood.getName());
-                        orderList.remove(findOrderItem(currentfood.getName()));//通过下标删除该菜
-                        printItems();
+                        MyApplication.userOrder.remove(MyApplication.findOrderItem(currentfood.getName()));//通过下标删除该菜
+                        MyApplication.printItems(MyApplication.userOrder);
                     } else {
                         viewHolder.choosebtu.setText("退菜");
                         currentfood.setIsReturnable(true);
                         Toast.makeText(getContext(), viewHolder.nameview.getText() + " 点菜成功", Toast.LENGTH_SHORT).show();
-                        orderList.add(new OrderItem(currentfood, 1, "备注1"));
-                        printItems();
+//                        orderList.add(new OrderItem(currentfood, 1, "备注1"));
+                        MyApplication.userOrder.add(new OrderItem(currentfood, 1, "备注1"));
+                        MyApplication.printItems(MyApplication.userOrder);
                     }
-
-                    //下面应该处理传递点菜的数据了，传递该菜
-//                Food food = new Food();
-//                food.setFoodName(nameview.getText().toString());
-//                food.setFoodPrice(Integer.parseInt(nameview.getText().toString()));
-
-//                String myfood = food.toString();
-//                list.add(myfood);
-//                editor.putInt("Nums", list.size());
-//                for (int i = 0; i < list.size(); i++)
-//                {
-//                    editor.putString("item_"+i, list.get(i));
-//                }
-//                editor.commit();
                 }
             });
         }
@@ -133,21 +121,4 @@ public class FoodAdapter extends ArrayAdapter<Food> {
 
     }
 
-    //查找该item,返回下标
-    public int findOrderItem(String name) {
-        for (int i = 0; i < orderList.size(); i++) {
-            if (orderList.get(i).getFood().getName().equals(name)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public void printItems() {
-        Log.d(TAG, "当前已点" + this.orderList.size() + "个菜");
-        for (int i = 0; i < this.orderList.size(); i++) {
-            Log.d(TAG, "printItems: " + this.orderList.get(i).getFood().getName());
-        }
-
-    }
 }

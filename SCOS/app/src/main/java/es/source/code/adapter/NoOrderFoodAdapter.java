@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import es.source.code.activity.R;
+import es.source.code.model.MyApplication;
 import es.source.code.model.OrderItem;
 
 /**
@@ -30,7 +31,7 @@ public class NoOrderFoodAdapter extends ArrayAdapter<OrderItem> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        OrderItem orderItem = getItem(position);
+        final OrderItem orderItem = getItem(position);
         View view;
         final ViewHolder viewHolder;
         if (convertView == null) {
@@ -46,11 +47,6 @@ public class NoOrderFoodAdapter extends ArrayAdapter<OrderItem> {
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
-//        final TextView nameview = (TextView) view.findViewById(R.id.name);
-//        final TextView priceview = (TextView) view.findViewById(R.id.price);
-//        final TextView numberview = (TextView) view.findViewById(R.id.number);
-//        final TextView remarksview = (TextView) view.findViewById(R.id.remarks);
-//        final Button notorderbtu = (Button) view.findViewById(R.id.notorder);
         if (orderItem != null) {
             viewHolder.nameview.setTextSize(18);
             viewHolder.nameview.setText(orderItem.getFood().getName());//菜名
@@ -70,7 +66,8 @@ public class NoOrderFoodAdapter extends ArrayAdapter<OrderItem> {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(), viewHolder.nameview.getText() + " 退点成功", Toast.LENGTH_SHORT).show();
-                    viewHolder.notorderbtu.setText("点菜");
+                    MyApplication.userOrder.remove(orderItem);
+
                 }
             });
         } else {

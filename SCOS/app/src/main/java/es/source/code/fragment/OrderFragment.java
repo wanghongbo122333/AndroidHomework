@@ -18,8 +18,9 @@ import java.util.List;
 
 import es.source.code.activity.R;
 import es.source.code.adapter.NoOrderFoodAdapter;
-import es.source.code.model.Food;
+import es.source.code.model.MyApplication;
 import es.source.code.model.OrderItem;
+import es.source.code.model.User;
 
 import static android.content.ContentValues.TAG;
 
@@ -33,21 +34,17 @@ import static android.content.ContentValues.TAG;
 public class OrderFragment extends Fragment {
     Context mContext;
     private View view;
-    private List<OrderItem> userOrder = new ArrayList<>();//用户点的菜
+    private List<OrderItem> userOrder = new ArrayList<>();//用户点该类型的菜
+    private User currentUser;
+
+    @SuppressLint("ValidFragment")
+    public OrderFragment(User currentUser) {
+        this.currentUser = currentUser;
+    }
 
     public OrderFragment() {//无参构造函数
-
     }
 
-    /**
-     * 有参数的构造函数，将用户点的菜传进来
-     *
-     * @param userOrder
-     */
-    @SuppressLint("ValidFragment")
-    public OrderFragment(List<OrderItem> userOrder) {
-        this.userOrder = userOrder;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,11 +62,8 @@ public class OrderFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //初始化订单信息
-//        List<OrderItem> list = initialOrder();
-        List<OrderItem> list = this.userOrder;
         //适配器配置
-        NoOrderFoodAdapter adapter = new NoOrderFoodAdapter(getActivity(), R.layout.no_order_conf_item, list);
+        NoOrderFoodAdapter adapter = new NoOrderFoodAdapter(getActivity(), R.layout.no_order_conf_item, MyApplication.userOrder);
         ListView listView = view.findViewById(R.id.listview);
         LinearLayout payL = view.findViewById(R.id.pay_bottom);
         LinearLayout submitL = view.findViewById(R.id.submit_bottom);
@@ -80,28 +74,15 @@ public class OrderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //提交订单，生成账单
-                Log.d(TAG, "onClick: 提交订单");
+
+                MyApplication.billOrder.addAll(MyApplication.userOrder);
+                MyApplication.userOrder.clear();//清空当前
+                MyApplication.printItems(MyApplication.billOrder);
             }
         });
         listView.setAdapter(adapter);
     }
 
-    /*
-    初始化订单信息，已经点了但是没出账的菜
-     */
-    public List<OrderItem> initialOrder() {
-
-        List<OrderItem> list = new ArrayList<>();
-        OrderItem tex1 = new OrderItem(new Food("白斩鸡", 153), 1, "备注");
-        list.add(tex1);
-        OrderItem tex2 = new OrderItem(new Food("红斩鸡", 153), 1, "备注");
-        list.add(tex2);
-        OrderItem tex3 = new OrderItem(new Food("黄斩鸡", 153), 1, "备注");
-        list.add(tex3);
-        OrderItem tex4 = new OrderItem(new Food("蓝斩鸡", 153), 1, "备注");
-        list.add(tex4);
-        return list;
-    }
 
 }
 
