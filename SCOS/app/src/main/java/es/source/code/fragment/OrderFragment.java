@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +69,10 @@ public class OrderFragment extends Fragment {
         ListView listView = view.findViewById(R.id.listview);
         LinearLayout payL = view.findViewById(R.id.pay_bottom);
         LinearLayout submitL = view.findViewById(R.id.submit_bottom);
+        TextView amount = view.findViewById(R.id.total_1);
+        amount.setText("共"+String.valueOf(MyApplication.userOrder.size())+"份");
+        TextView totalPrice = view.findViewById(R.id.totalprice_1);
+        totalPrice.setText("总价"+String.valueOf(MyApplication.getBill(MyApplication.userOrder))+"元");
         payL.setVisibility(View.GONE);
         submitL.setVisibility(View.VISIBLE);
         Button btn = view.findViewById(R.id.submit_order_btn);
@@ -74,9 +80,9 @@ public class OrderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //提交订单，生成账单
-
+                Toast.makeText(getContext(),"您已成功下单！",Toast.LENGTH_SHORT).show();
                 MyApplication.billOrder.addAll(MyApplication.userOrder);
-                MyApplication.userOrder.clear();//清空当前
+                MyApplication.userOrder.clear();//清空当前userorder
                 MyApplication.printItems(MyApplication.billOrder);
             }
         });

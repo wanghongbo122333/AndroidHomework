@@ -13,8 +13,9 @@ import static android.content.ContentValues.TAG;
  */
 
 public class MyApplication extends Application {
-    public static List<OrderItem> userOrder=new ArrayList<>();//存储用户点的菜
-    public  static  List<OrderItem> billOrder=new ArrayList<>();//存储已经下单的菜
+    public static List<OrderItem> userOrder = new ArrayList<>();//存储用户点的菜
+    public static List<OrderItem> billOrder = new ArrayList<>();//存储已经下单的菜
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -37,8 +38,16 @@ public class MyApplication extends Application {
 
     public static void printItems(List<OrderItem> list) {
         for (int i = 0; i < list.size(); i++) {
-            Log.d(TAG, "printItems: " +list.get(i).getFood().getName());
+            Log.d(TAG, "printItems: " + list.get(i).getFood().getName());
         }
+    }
 
+    public static int getBill(List<OrderItem> list) {
+        int total=0;
+        for (int i=0; i < list.size(); i++)
+        {
+            total+=list.get(i).getAmount()*list.get(i).getFood().getPrice();
+        }
+        return  total;
     }
 }

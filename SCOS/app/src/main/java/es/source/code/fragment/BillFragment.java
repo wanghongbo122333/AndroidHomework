@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import es.source.code.activity.R;
@@ -69,6 +70,10 @@ public class BillFragment extends Fragment {
         ListView listView = view.findViewById(R.id.listview);
         LinearLayout payL = view.findViewById(R.id.pay_bottom);
         LinearLayout submitL = view.findViewById(R.id.submit_bottom);
+        TextView amount = view.findViewById(R.id.total);
+        amount.setText("共"+String.valueOf(MyApplication.billOrder.size())+"份");
+        TextView totalPrice = view.findViewById(R.id.totalprice);
+        totalPrice.setText("总价"+String.valueOf(MyApplication.getBill(MyApplication.billOrder))+"元");
         payL.setVisibility(View.VISIBLE);
         submitL.setVisibility(View.GONE);
         Button button = view.findViewById(R.id.pay_btn);
