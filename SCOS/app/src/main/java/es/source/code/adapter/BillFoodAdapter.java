@@ -16,10 +16,10 @@ import es.source.code.model.OrderItem;
  * Created by WangHongbo on 2018/10/11.
  */
 
-public class AlreadyOrderFoodAdapter extends ArrayAdapter<OrderItem> {
+public class BillFoodAdapter extends ArrayAdapter<OrderItem> {
     private int resourceId;
 
-    public AlreadyOrderFoodAdapter(Context context, int textViewResourceId, List<OrderItem> objects) {
+    public BillFoodAdapter(Context context, int textViewResourceId, List<OrderItem> objects) {
         super(context, textViewResourceId, objects);
         resourceId = textViewResourceId;
     }

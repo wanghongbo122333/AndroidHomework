@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_already"
-        android:title="已点菜品"/>
+        android:title="已点菜品"
+        app:showAsAction="always"/>
+
     <item
         android:id="@+id/action_check"
-        android:title="查看订单"/>
+        android:title="查看订单"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_help"
-        android:title="呼叫服务"/>
+        android:title="呼叫服务"
+        app:showAsAction="ifRoom"/>
 
     <!--android:icon="@drawable/discard"      android:icon="@drawable/cut"     -->
 </menu>

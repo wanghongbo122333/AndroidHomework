@@ -35,7 +35,8 @@
         <activity android:name=".LoginOrRegister" />
         <activity android:name=".FoodView" />
         <activity android:name=".FoodOrderView" />
-        <activity android:name=".FoodDetailed"></activity>
+        <activity android:name=".FoodDetailed" />
+        <activity android:name=".SCOSHelper"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package es.source.code.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,6 +40,12 @@ public class MainScreen extends AppCompatActivity {
         String info = intent.getStringExtra("info");//获取info信息
         //获取当前的用户信息
         this.currentUser = (User) intent.getSerializableExtra("user");
+        //读取SharedPreferences数据信息
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo",MODE_PRIVATE);
+        //读取username，如果没有就用默认值代替
+        final String userName = sharedPreferences.getString("userName","");
+        //读取登录状态码没有的话默认0
+        final  int loginState = sharedPreferences.getInt("loginState",0);
         GridView gridView = findViewById(R.id.gridview);
         String[] from = {"image", "name"};
         int[] to = {R.id.image, R.id.gridname};
@@ -82,20 +89,15 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
-        if ("FromEntry".equals(info)) {
+        if (0==loginState) {
             showItems(2);
         }
-        if ("LoginSuccess".equals(info)) {
+        else if(1==loginState){
             showItems(4);
-            //user = (User) bundle.getSerializable("user");
-        }
-        if ("RegisterSuccess".equals(info)) {
-            showItems(4);
-
-            Toast.makeText(getApplicationContext(), "欢迎您成为SCOS新用户", Toast.LENGTH_SHORT).show();
-        }
-        if ("Return".equals(info)) {
-            showItems(2);
+            if ("RegisterSuccess".equals(info)) {
+                showItems(4);
+                Toast.makeText(getApplicationContext(), "欢迎您成为SCOS新用户", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

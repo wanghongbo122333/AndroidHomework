@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import es.source.code.activity.R;
-import es.source.code.adapter.AlreadyOrderFoodAdapter;
+import es.source.code.adapter.BillFoodAdapter;
 import es.source.code.model.MyApplication;
 import es.source.code.model.User;
 
@@ -66,7 +66,7 @@ public class BillFragment extends Fragment {
 
     public void initView(View view) {
         Log.d("BillFragment", "initView: ");
-        AlreadyOrderFoodAdapter adapter = new AlreadyOrderFoodAdapter(getActivity(), R.layout.already_order_conf_item, MyApplication.billOrder);
+        BillFoodAdapter adapter = new BillFoodAdapter(getActivity(), R.layout.already_order_conf_item, MyApplication.billOrder);
         ListView listView = view.findViewById(R.id.listview);
         LinearLayout payL = view.findViewById(R.id.pay_bottom);
         LinearLayout submitL = view.findViewById(R.id.submit_bottom);

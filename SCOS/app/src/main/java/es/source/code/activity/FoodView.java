@@ -26,8 +26,8 @@ import es.source.code.model.User;
 public class FoodView extends AppCompatActivity {
     private static final String TAG = "FoodView";
     List<CuisineFragment> fragmentList = new ArrayList<>();
-    List<OrderItem> userOrder=new ArrayList<>();//用于存储用户点的菜
-    private  Menu_ViewPagerAdapter menu_viewPagerAdapter;
+    List<OrderItem> userOrder = new ArrayList<>();//用于存储用户点的菜
+    private Menu_ViewPagerAdapter menu_viewPagerAdapter;
     TabLayout tabLayout;
     private User currentUser = null;
 
@@ -98,6 +98,8 @@ public class FoodView extends AppCompatActivity {
                 return true;
             case R.id.action_help://呼叫服务
                 Toast.makeText(this, "action_help", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(FoodView.this, SCOSHelper.class);
+                FoodView.this.startActivity(intent1);
                 return true;
         }
         return true;

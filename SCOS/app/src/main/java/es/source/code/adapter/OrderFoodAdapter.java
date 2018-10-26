@@ -20,10 +20,10 @@ import es.source.code.model.OrderItem;
  * Created by WangHongbo on 2018/10/11.
  */
 
-public class NoOrderFoodAdapter extends ArrayAdapter<OrderItem> {
+public class OrderFoodAdapter extends ArrayAdapter<OrderItem> {
     private int resourceId;
 
-    public NoOrderFoodAdapter(Context context, int textViewResourceId, List<OrderItem> objects) {
+    public OrderFoodAdapter(Context context, int textViewResourceId, List<OrderItem> objects) {
         super(context, textViewResourceId, objects);
         resourceId = textViewResourceId;
     }

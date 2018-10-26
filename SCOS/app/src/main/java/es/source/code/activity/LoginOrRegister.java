@@ -2,6 +2,7 @@ package es.source.code.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -34,6 +35,19 @@ public class LoginOrRegister extends AppCompatActivity {
         Button registerBtn = findViewById(R.id.registerBtn);
         nameInput = findViewById(R.id.nameInput);
         pwdInput = findViewById(R.id.pwdInput);
+
+        //读取SharedPreferences数据信息
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo",MODE_PRIVATE);
+        //读取username，如果没有就用默认值代替
+        final String userName = sharedPreferences.getString("userName","");
+        Log.d(TAG, "onCreate: 获取sharedPreferences"+userName);
+        if(userName.equals("")){
+            logBtn.setVisibility(View.GONE);
+        }
+        else {
+            registerBtn.setVisibility(View.GONE);
+            nameInput.setText(userName);
+        }
         //点击登录按钮
         logBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,12 +60,6 @@ public class LoginOrRegister extends AppCompatActivity {
                 if (!matcher_name.matches()) nameInput.setError("输入内容不符合规则");
                 if (!matcher_pws.matches()) pwdInput.setError("输入内容不符合规则");
                 if (matcher_name.matches() && matcher_pws.matches()) {
-//                    User loginUser = new User(name, pwd, true);
-//                    Log.d(TAG, "onClick: login");
-//                    Intent intent = new Intent("scos.intent.action.SCOSMAIN");
-//                    intent.addCategory("scos.intent.category.SCOSLAUNCHER");
-//                    intent.putExtra("info", "LoginSuccess");
-                    //progress对话框
                     final ProgressDialog pd = new ProgressDialog(LoginOrRegister.this);
                     pd.setTitle("努力加载中~~~");//设置一个标题
                     pd.setMessage("请稍后……");//设置消息
@@ -75,7 +83,12 @@ public class LoginOrRegister extends AppCompatActivity {
                             bundle.putSerializable("user", loginUser);//将该注册的用户对象存入bundle中
                             intent.putExtras(bundle);//把bundle放进intent中
                             startActivity(intent);
-                            Log.d(TAG, "run:  register success ");
+
+                            //写入SharedPreferences数据
+                            SharedPreferences.Editor editor =getSharedPreferences("userInfo",MODE_PRIVATE).edit();
+                            editor.putString("userName",name);
+                            editor.putInt("loginState",1);
+                            editor.apply();
                         }
                     }, 2000);
                     Log.d(TAG, "run:  登录成功 ");
@@ -116,6 +129,11 @@ public class LoginOrRegister extends AppCompatActivity {
                             bundle.putSerializable("user", registerUser);//将该注册的用户对象存入bundle中
                             intent.putExtras(bundle);//把bundle放进intent中
                             startActivity(intent);
+                            //写入SharedPreferences数据
+                            SharedPreferences.Editor editor =getSharedPreferences("userInfo",MODE_PRIVATE).edit();
+                            editor.putString("userName",name);
+                            editor.putInt("loginState",1);
+                            editor.apply();
                             Log.d(TAG, "run:  注册成功 ");
                         }
                     }, 2000);
@@ -127,7 +145,12 @@ public class LoginOrRegister extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: back");
-                Log.d(TAG, "onClick: login");
+                if(userName.equals("")){
+                    //写入SharedPreferences数据
+                    SharedPreferences.Editor editor =getSharedPreferences("userInfo",MODE_PRIVATE).edit();
+                    editor.putInt("loginState",0);
+                    editor.apply();
+                }
                 Intent intent = new Intent("scos.intent.action.SCOSMAIN");
                 intent.addCategory("scos.intent.category.SCOSLAUNCHER");
                 intent.putExtra("info", "Return");

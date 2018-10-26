@@ -20,29 +20,28 @@
         android:id="@+id/logBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/pwdInput"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="50dp"
+        android:layout_alignBaseline="@+id/registerBtn"
+        android:layout_alignBottom="@+id/registerBtn"
+        android:layout_alignStart="@+id/textView2"
         android:text="登录" />
 
     <Button
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/logBtn"
-        android:layout_alignBottom="@+id/logBtn"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="56dp"
+        android:layout_below="@+id/pwdInput"
+        android:layout_marginEnd="52dp"
+        android:layout_marginTop="40dp"
         android:text="返回" />
 
     <Button
         android:id="@+id/registerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/logBtn"
-        android:layout_alignBottom="@+id/logBtn"
-        android:layout_toEndOf="@+id/logBtn"
+        android:layout_alignBaseline="@+id/backBtn"
+        android:layout_alignBottom="@+id/backBtn"
+        android:layout_alignStart="@+id/logBtn"
         android:text="注册" />
 
     <EditText
@@ -69,9 +68,10 @@
         android:id="@+id/textView" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/logBtn"
+        android:layout_alignBottom="@+id/pwdInput"
         android:layout_alignEnd="@+id/textView"
         android:layout_alignStart="@+id/textView"
         android:layout_below="@+id/nameInput"
@@ -79,14 +79,6 @@
         android:text="密码"
         android:textAlignment="center" />
 
-    <!--<ProgressBar-->
-        <!--android:id="@+id/progressBar"-->
-        <!--style="?android:attr/progressBarStyleLargeInverse"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@+id/logBtn"-->
-        <!--android:layout_marginBottom="15dp"-->
-        <!--android:layout_toStartOf="@+id/backBtn" />-->
 
 
 </RelativeLayout>

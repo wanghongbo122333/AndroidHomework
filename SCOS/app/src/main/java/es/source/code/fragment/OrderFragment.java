@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.source.code.activity.R;
-import es.source.code.adapter.NoOrderFoodAdapter;
+import es.source.code.adapter.OrderFoodAdapter;
 import es.source.code.model.MyApplication;
 import es.source.code.model.OrderItem;
 import es.source.code.model.User;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by WangHongbo on 2018/10/11.
@@ -65,7 +62,7 @@ public class OrderFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //适配器配置
-        NoOrderFoodAdapter adapter = new NoOrderFoodAdapter(getActivity(), R.layout.no_order_conf_item, MyApplication.userOrder);
+        OrderFoodAdapter adapter = new OrderFoodAdapter(getActivity(), R.layout.no_order_conf_item, MyApplication.userOrder);
         ListView listView = view.findViewById(R.id.listview);
         LinearLayout payL = view.findViewById(R.id.pay_bottom);
         LinearLayout submitL = view.findViewById(R.id.submit_bottom);
@@ -80,7 +77,7 @@ public class OrderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //提交订单，生成账单
-                Toast.makeText(getContext(),"您已成功下单！",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"您已成功下单!",Toast.LENGTH_SHORT).show();
                 MyApplication.billOrder.addAll(MyApplication.userOrder);
                 MyApplication.userOrder.clear();//清空当前userorder
                 MyApplication.printItems(MyApplication.billOrder);
@@ -88,6 +85,7 @@ public class OrderFragment extends Fragment {
         });
         listView.setAdapter(adapter);
     }
+
 
 
 }
