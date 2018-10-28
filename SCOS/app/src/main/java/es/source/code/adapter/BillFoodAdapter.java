@@ -1,6 +1,9 @@
 package es.source.code.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +23,21 @@ public class BillFoodAdapter extends ArrayAdapter<OrderItem> {
     private int resourceId;
 
     public BillFoodAdapter(Context context, int textViewResourceId, List<OrderItem> objects) {
+
         super(context, textViewResourceId, objects);
+        Log.d("1111111111111111", "11111111111: ");
         resourceId = textViewResourceId;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+        Log.d("333333333333", "getView: 3333333333333333333");
         OrderItem orderItem = getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+        if(orderItem==null){
+            Log.d("55555555555555", "getView: orderitem为空");
+        }
+        @SuppressLint("ViewHolder") View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
 
         final TextView nameview = (TextView) view.findViewById(R.id.name);
         final TextView priceview = (TextView) view.findViewById(R.id.price);

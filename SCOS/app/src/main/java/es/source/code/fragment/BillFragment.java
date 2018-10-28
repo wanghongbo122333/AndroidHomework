@@ -1,7 +1,9 @@
 package es.source.code.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +33,8 @@ import es.source.code.model.User;
  */
 public class BillFragment extends Fragment {
     private static final String TAG = "BillFragment";
-
+    private int money;
+    private int total_amount;
     Context mContext;
     User user;
     private View view;
@@ -64,16 +68,18 @@ public class BillFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    public void initView(View view) {
+    public void initView(final View view) {
         Log.d("BillFragment", "initView: ");
         BillFoodAdapter adapter = new BillFoodAdapter(getActivity(), R.layout.already_order_conf_item, MyApplication.billOrder);
         ListView listView = view.findViewById(R.id.listview);
         LinearLayout payL = view.findViewById(R.id.pay_bottom);
         LinearLayout submitL = view.findViewById(R.id.submit_bottom);
         TextView amount = view.findViewById(R.id.total);
-        amount.setText("共"+String.valueOf(MyApplication.billOrder.size())+"份");
+        this.total_amount = MyApplication.billOrder.size();
+        this.money = MyApplication.getBill(MyApplication.billOrder);
+        amount.setText("共" + String.format("%d", this.total_amount) + "份");
         TextView totalPrice = view.findViewById(R.id.totalprice);
-        totalPrice.setText("总价"+String.valueOf(MyApplication.getBill(MyApplication.billOrder))+"元");
+        totalPrice.setText("总价" + String.format("%d", this.money) + "元");
         payL.setVisibility(View.VISIBLE);
         submitL.setVisibility(View.GONE);
         Button button = view.findViewById(R.id.pay_btn);
@@ -83,8 +89,13 @@ public class BillFragment extends Fragment {
                 if (user != null && user.getIsOldUser()) {
                     Toast.makeText(getContext(), "您好，老顾客，本次你可享受7折优惠", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "结账！", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "结账！", Toast.LENGTH_SHORT).show();
                 }
+                TextView tv = view.findViewById(R.id.progresstext);
+                ProgressBar pb = view.findViewById(R.id.myprogressBar);
+                MyAsyncTask myBarAsyncTask=new MyAsyncTask(tv, pb);
+                myBarAsyncTask.execute();
+
             }
         });
         listView.setAdapter(adapter);
@@ -94,21 +105,61 @@ public class BillFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         Log.d(TAG, "setUserVisibleHint: " + isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if (isVisibleToUser) {
             initView(view);
         }
     }
 
-    @Override
-    public void onResume() {
-        Log.d(TAG, "onResume: ");
-        super.onResume();
-    }
+    public class MyAsyncTask extends AsyncTask {
+        private TextView textView;
+        private ProgressBar progressBar;
 
-    @Override
-    public void onPause() {
-        Log.d(TAG, "onPause: ");
-        super.onPause();
+        public MyAsyncTask(TextView textView, ProgressBar progressBar) {
+            super();
+            this.textView = textView;
+            this.progressBar = progressBar;
+            progressBar.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
+        }
+
+
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            int i;
+            for (i = 1; i <= 6; i ++) {
+                //textView.setText(Integer.toString(j));
+                try {
+                    Thread.sleep(1000);
+                    publishProgress(i*10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return i + params.toString();
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            //textView.setText("结账完成！");
+            Toast.makeText(mContext, "结账完成，金额：" + String.valueOf(money) + "元，积分：" +
+                    String.valueOf(money), Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
+            textView.setVisibility(View.INVISIBLE);
+            Button button = view.findViewById(R.id.pay_btn);
+            button.setClickable(false);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Object[] values) {
+            int value = (int) values[0];
+            progressBar.setProgress(value);
+        }
     }
 }
 

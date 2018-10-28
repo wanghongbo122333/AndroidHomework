@@ -5,7 +5,7 @@
     <permission
         android:name="scos.permission.ACCESSSCOS"
         android:protectionLevel="dangerous" />
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:name="es.source.code.model.MyApplication"
         android:allowBackup="true"

@@ -64,6 +64,7 @@ public class LoginOrRegister extends AppCompatActivity {
                     pd.setTitle("努力加载中~~~");//设置一个标题
                     pd.setMessage("请稍后……");//设置消息
                     pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    pd.setCancelable(false);
                     pd.show();//展示对话框
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -111,6 +112,7 @@ public class LoginOrRegister extends AppCompatActivity {
                     pd.setTitle("努力加载中~~~");//设置一个标题
                     pd.setMessage("请稍后……");//设置消息
                     pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    pd.setCancelable(false);
                     pd.show();//展示对话框
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {

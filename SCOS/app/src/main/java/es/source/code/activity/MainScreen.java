@@ -95,7 +95,6 @@ public class MainScreen extends AppCompatActivity {
         else if(1==loginState){
             showItems(4);
             if ("RegisterSuccess".equals(info)) {
-                showItems(4);
                 Toast.makeText(getApplicationContext(), "欢迎您成为SCOS新用户", Toast.LENGTH_SHORT).show();
             }
         }

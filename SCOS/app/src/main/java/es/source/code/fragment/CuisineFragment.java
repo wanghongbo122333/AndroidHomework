@@ -35,7 +35,7 @@ import static android.content.ContentValues.TAG;
 
 public class CuisineFragment extends Fragment {
     private String mTitle;//标签名字
-    private ArrayList<Food> foodList;//该标签下对应的菜
+    private ArrayList foodList;//该标签下对应的菜
     private View view;
     private FoodAdapter adapter;
     private  Context mContext;
@@ -80,16 +80,9 @@ public class CuisineFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, this.getTitle()+"onCreateView:" + this.foodList.get(0));
+//        Log.d(TAG, this.getTitle()+"onCreateView:" + this.foodList.get(0));
         view = inflater.inflate(R.layout.list_view, container, false);
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        Log.d(TAG, this.getTitle()+"onActivityCreated:");
-        super.onActivityCreated(savedInstanceState);
-        List<Food> list = this.foodList;
+        ArrayList list = this.foodList;
         adapter = new FoodAdapter(getActivity(), R.layout.food_item, list);
         ListView listView =  view.findViewById(R.id.listview);
         LinearLayout linearLayout =  view.findViewById(R.id.submit_bottom);
@@ -97,6 +90,14 @@ public class CuisineFragment extends Fragment {
         linearLayout.setVisibility(View.GONE);
         linearLayout_1.setVisibility(View.GONE);
         listView.setAdapter(adapter);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+//        Log.d(TAG, this.getTitle()+"onActivityCreated:");
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     @Override
