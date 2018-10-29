@@ -70,7 +70,7 @@ public class BillFragment extends Fragment {
 
     public void initView(final View view) {
         Log.d("BillFragment", "initView: ");
-        BillFoodAdapter adapter = new BillFoodAdapter(getActivity(), R.layout.already_order_conf_item, MyApplication.billOrder);
+        BillFoodAdapter adapter = new BillFoodAdapter(mContext, R.layout.already_order_conf_item, MyApplication.billOrder);
         ListView listView = view.findViewById(R.id.listview);
         LinearLayout payL = view.findViewById(R.id.pay_bottom);
         LinearLayout submitL = view.findViewById(R.id.submit_bottom);
