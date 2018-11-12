@@ -63,6 +63,8 @@ public class OrderFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         //适配器配置
         OrderFoodAdapter adapter = new OrderFoodAdapter(getActivity(), R.layout.no_order_conf_item, MyApplication.userOrder);
+//        adapter.notifyDataSetChanged();
+
         ListView listView = view.findViewById(R.id.listview);
         LinearLayout payL = view.findViewById(R.id.pay_bottom);
         LinearLayout submitL = view.findViewById(R.id.submit_bottom);

@@ -1,20 +1,29 @@
 package es.source.code.activity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import es.source.code.model.HttpUtilsHttpClient;
 import es.source.code.model.User;
 
 /**
@@ -37,14 +46,13 @@ public class LoginOrRegister extends AppCompatActivity {
         pwdInput = findViewById(R.id.pwdInput);
 
         //读取SharedPreferences数据信息
-        SharedPreferences sharedPreferences = getSharedPreferences("userInfo",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
         //读取username，如果没有就用默认值代替
-        final String userName = sharedPreferences.getString("userName","");
-        Log.d(TAG, "onCreate: 获取sharedPreferences"+userName);
-        if(userName.equals("")){
+        final String userName = sharedPreferences.getString("userName", "");
+        Log.d(TAG, "onCreate: 获取sharedPreferences" + userName);
+        if (userName.equals("")) {
             logBtn.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             registerBtn.setVisibility(View.GONE);
             nameInput.setText(userName);
         }
@@ -76,6 +84,55 @@ public class LoginOrRegister extends AppCompatActivity {
                             String pwd = pwdInput.getText().toString();
                             User loginUser = new User(name, pwd, true);
                             Log.d(TAG, "onClick: login");
+                            //服务器验证
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d("HttpServer", "threadStart");
+                                    String url = HttpUtilsHttpClient.BASE_URL + "/LoginValidator";
+                                    Map<String, String> params = new HashMap<String, String>();
+                                    String name = "whb";
+                                    String password = "123456";
+                                    params.put("name", name);
+                                    params.put("password", password);
+                                    //请求，返回json
+                                    String result = HttpUtilsHttpClient.postRequest(url, params);
+                                    Message msg = new Message();
+                                    msg.what = 0x11;
+                                    Bundle data = new Bundle();
+                                    data.putString("result", result);
+                                    msg.setData(data);
+                                    hander.sendMessage(msg);
+                                }
+
+                                @SuppressLint("HandlerLeak")
+                                Handler hander = new Handler() {
+                                    @Override
+                                    public void handleMessage(Message msg) {
+                                        if (msg.what == 0x11) {
+                                            Log.d("httpServer", "GetResponse");
+                                            Bundle data = msg.getData();
+                                            String key = data.getString("result");//得到json返回的json数据
+                                            Log.d("httpServer", "getKey");
+                                            try {
+                                                JSONObject json = new JSONObject(key);
+                                                Log.d("httpServer", "newJson");
+                                                String result = (String) json.get("result");
+                                                Log.d("httpServer", "getResult");
+                                                if ("success".equals(result)) {
+                                                    Log.d("login", "loginSuccess");
+                                                    Toast.makeText(LoginOrRegister.this, "登录成功", Toast.LENGTH_LONG).show();
+                                                } else if ("error".equals(result)) {
+                                                    Log.d("login", "loginFailed");
+                                                    Toast.makeText(LoginOrRegister.this, "登录失败", Toast.LENGTH_LONG).show();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+                                };
+                            }).start();
                             //下面这里是隐式使用intent
                             Intent intent = new Intent("scos.intent.action.SCOSMAIN");//set Action
                             intent.addCategory("scos.intent.category.SCOSLAUNCHER");//add category
@@ -86,12 +143,14 @@ public class LoginOrRegister extends AppCompatActivity {
                             startActivity(intent);
 
                             //写入SharedPreferences数据
-                            SharedPreferences.Editor editor =getSharedPreferences("userInfo",MODE_PRIVATE).edit();
-                            editor.putString("userName",name);
-                            editor.putInt("loginState",1);
+                            SharedPreferences.Editor editor = getSharedPreferences("userInfo", MODE_PRIVATE).edit();
+                            editor.putString("userName", name);
+                            editor.putInt("loginState", 1);
                             editor.apply();
                         }
                     }, 2000);
+
+
                     Log.d(TAG, "run:  登录成功 ");
                 }
             }
@@ -132,9 +191,9 @@ public class LoginOrRegister extends AppCompatActivity {
                             intent.putExtras(bundle);//把bundle放进intent中
                             startActivity(intent);
                             //写入SharedPreferences数据
-                            SharedPreferences.Editor editor =getSharedPreferences("userInfo",MODE_PRIVATE).edit();
-                            editor.putString("userName",name);
-                            editor.putInt("loginState",1);
+                            SharedPreferences.Editor editor = getSharedPreferences("userInfo", MODE_PRIVATE).edit();
+                            editor.putString("userName", name);
+                            editor.putInt("loginState", 1);
                             editor.apply();
                             Log.d(TAG, "run:  注册成功 ");
                         }
@@ -147,10 +206,10 @@ public class LoginOrRegister extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: back");
-                if(userName.equals("")){
+                if (userName.equals("")) {
                     //写入SharedPreferences数据
-                    SharedPreferences.Editor editor =getSharedPreferences("userInfo",MODE_PRIVATE).edit();
-                    editor.putInt("loginState",0);
+                    SharedPreferences.Editor editor = getSharedPreferences("userInfo", MODE_PRIVATE).edit();
+                    editor.putInt("loginState", 0);
                     editor.apply();
                 }
                 Intent intent = new Intent("scos.intent.action.SCOSMAIN");

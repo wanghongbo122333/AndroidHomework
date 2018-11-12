@@ -32,9 +32,9 @@ public class FoodAdapter extends ArrayAdapter<Food> {
     private Context context;
     private List<OrderItem> orderList;//存储点的菜
 
-    public List<OrderItem> getOrderList() {
-        return orderList;
-    }
+//    public List<OrderItem> getOrderList() {
+//        return orderList;
+//    }
 
     public FoodAdapter(Context context, int textViewResourceId, List<Food> objects) {
         super(context, textViewResourceId, objects);
@@ -43,10 +43,12 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         this.orderList = new ArrayList<>();
     }
 
+
+
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        final Food currentfood = getItem(position);
+        final Food currentFood = getItem(position);
         View view;
         final ViewHolder viewHolder;
         if (convertView == null) {
@@ -55,22 +57,22 @@ public class FoodAdapter extends ArrayAdapter<Food> {
             viewHolder.choosebtu = view.findViewById(R.id.choose);
             viewHolder.nameview = view.findViewById(R.id.name);
             viewHolder.priceview = view.findViewById(R.id.price);
+            viewHolder.amount = view.findViewById(R.id.amount);
             view.setTag(viewHolder);
         } else {
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
-        if (currentfood != null) {
+        if (currentFood != null) {
             viewHolder.nameview.setTextSize(18);
-            viewHolder.nameview.setText(currentfood.getName());
+            viewHolder.nameview.setText(currentFood.getName());
 
             viewHolder.priceview.setTextSize(18);
-            viewHolder.priceview.setText(String.valueOf(currentfood.getPrice()));
+            viewHolder.priceview.setText(String.valueOf(currentFood.getPrice()));
 
+            viewHolder.amount.setText("库存：" + String.valueOf(currentFood.getInventory()) + "份");
             viewHolder.choosebtu.setTextSize(18);
-
-
-            if (currentfood.getIsReturnable()) {//菜品一开始都是不可退的
+            if (currentFood.getIsReturnable()) {//菜品一开始都是不可退的
                 viewHolder.choosebtu.setText("退菜");
             } else {
                 viewHolder.choosebtu.setText("点菜");
@@ -88,19 +90,18 @@ public class FoodAdapter extends ArrayAdapter<Food> {
             viewHolder.choosebtu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (currentfood.getIsReturnable()) {//如果是可退的，说明当前已经点击的按钮是退菜按钮
+                    if (currentFood.getIsReturnable()) {//如果是可退的，说明当前已经点击的按钮是退菜按钮
                         viewHolder.choosebtu.setText("点菜");
-                        currentfood.setIsReturnable(false);//当前菜品已经点菜，也就可以退菜
+                        currentFood.setIsReturnable(false);//当前菜品已经点菜，也就可以退菜
                         Toast.makeText(getContext(), viewHolder.nameview.getText() + " 退菜成功", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onClick:删除" + currentfood.getName());
-                        MyApplication.userOrder.remove(MyApplication.findOrderItem(currentfood.getName()));//通过下标删除该菜
+                        Log.d(TAG, "onClick:删除" + currentFood.getName());
+                        MyApplication.userOrder.remove(MyApplication.findOrderItem(currentFood.getName()));//通过下标删除该菜
                         MyApplication.printItems(MyApplication.userOrder);
                     } else {
                         viewHolder.choosebtu.setText("退菜");
-                        currentfood.setIsReturnable(true);
+                        currentFood.setIsReturnable(true);
                         Toast.makeText(getContext(), viewHolder.nameview.getText() + " 点菜成功", Toast.LENGTH_SHORT).show();
-//                        orderList.add(new OrderItem(currentfood, 1, "备注1"));
-                        MyApplication.userOrder.add(new OrderItem(currentfood, 1, "备注1"));
+                        MyApplication.userOrder.add(new OrderItem(currentFood, 1, "备注1"));
                         MyApplication.printItems(MyApplication.userOrder);
                     }
                 }
@@ -118,6 +119,7 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         TextView nameview;
         TextView priceview;
         Button choosebtu;
+        TextView amount;
 
     }
 

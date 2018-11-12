@@ -72,7 +72,7 @@ public class MainScreen extends AppCompatActivity {
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("user", currentUser);
                         intent.putExtras(bundle);
-                        startActivity(intent);
+                        MainScreen.this.startActivity(intent);
                         break;
                     }
                     case 0: {//登录注册

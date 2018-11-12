@@ -80,10 +80,13 @@ public class CuisineFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        Log.d(TAG, this.getTitle()+"onCreateView:" + this.foodList.get(0));
         view = inflater.inflate(R.layout.list_view, container, false);
         ArrayList list = this.foodList;
         adapter = new FoodAdapter(getActivity(), R.layout.food_item, list);
+        //数据有变化，就重新加载
+//        adapter.notify();
+
+
         ListView listView =  view.findViewById(R.id.listview);
         LinearLayout linearLayout =  view.findViewById(R.id.submit_bottom);
         LinearLayout linearLayout_1 =  view.findViewById(R.id.pay_bottom);

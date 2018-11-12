@@ -26,7 +26,7 @@ public class FoodDetailed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_detailed);
-        viewPager = (ViewPager) findViewById(R.id.food_detail);
+        viewPager = findViewById(R.id.food_detail);
 
         fragmentList.add(new DetailedinfoFragment());
         fragmentList.add(new DetailedinfoFragment());
@@ -37,7 +37,7 @@ public class FoodDetailed extends AppCompatActivity {
     }
 
     class ViewPageAdapter extends FragmentPagerAdapter {
-        public ViewPageAdapter(FragmentManager fm) {
+        ViewPageAdapter(FragmentManager fm) {
             super(fm);
         }
 

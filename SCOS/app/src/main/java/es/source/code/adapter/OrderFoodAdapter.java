@@ -65,6 +65,7 @@ public class OrderFoodAdapter extends ArrayAdapter<OrderItem> {
             viewHolder.notorderbtu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    remove(orderItem);
                     Toast.makeText(getContext(), viewHolder.nameview.getText() + " 退点成功", Toast.LENGTH_SHORT).show();
                     MyApplication.userOrder.remove(orderItem);
 

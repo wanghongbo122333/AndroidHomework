@@ -9,11 +9,15 @@
     <item
         android:id="@+id/action_check"
         android:title="查看订单"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_help"
         android:title="呼叫服务"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_update"
+        android:title="启动实时更新"
+        app:showAsAction="always"/>
 
     <!--android:icon="@drawable/discard"      android:icon="@drawable/cut"     -->
 </menu>

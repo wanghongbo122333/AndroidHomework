@@ -19,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 import es.source.code.activity.R;
 import es.source.code.adapter.BillFoodAdapter;
 import es.source.code.model.MyApplication;
@@ -68,6 +70,7 @@ public class BillFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     public void initView(final View view) {
         Log.d("BillFragment", "initView: ");
         BillFoodAdapter adapter = new BillFoodAdapter(mContext, R.layout.already_order_conf_item, MyApplication.billOrder);
@@ -89,7 +92,7 @@ public class BillFragment extends Fragment {
                 if (user != null && user.getIsOldUser()) {
                     Toast.makeText(getContext(), "您好，老顾客，本次你可享受7折优惠", Toast.LENGTH_SHORT).show();
                 } else {
-//                    Toast.makeText(getContext(), "结账！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "结账！", Toast.LENGTH_SHORT).show();
                 }
                 TextView tv = view.findViewById(R.id.progresstext);
                 ProgressBar pb = view.findViewById(R.id.myprogressBar);
@@ -110,11 +113,12 @@ public class BillFragment extends Fragment {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class MyAsyncTask extends AsyncTask {
         private TextView textView;
         private ProgressBar progressBar;
 
-        public MyAsyncTask(TextView textView, ProgressBar progressBar) {
+        MyAsyncTask(TextView textView, ProgressBar progressBar) {
             super();
             this.textView = textView;
             this.progressBar = progressBar;
@@ -136,7 +140,7 @@ public class BillFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-            return i + params.toString();
+            return i + Arrays.toString(params);
         }
 
         @Override
@@ -149,6 +153,7 @@ public class BillFragment extends Fragment {
             Button button = view.findViewById(R.id.pay_btn);
             button.setClickable(false);
         }
+
 
         @Override
         protected void onPreExecute() {

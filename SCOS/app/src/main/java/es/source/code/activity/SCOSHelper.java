@@ -88,14 +88,11 @@ public class SCOSHelper extends AppCompatActivity {
                                     //设置服务器地址和端口，可以查询网络
                                     sender.setProperties("smtp.qq.com", "465");
                                     //分别设置发件人，邮件标题和文本内容
-                                    sender.setMessage("920609306@qq.com", "title", "content");
+                                    sender.setMessage("9******q.com", "邮件标题", "邮件内容");
                                     //设置收件人
-                                    sender.setReceiver(new String[]{"wanghongbo_abc@163.com"});
-                                    //添加附件换成你手机里正确的路径
-                                    // sender.addAttachment("/sdcard/emil/emil.txt");
+                                    sender.setReceiver(new String[]{"w******c@163.com"});
                                     //发送邮件
-                                    //sender.setMessage("你的163邮箱账号", "EmailS//ender", "Java Mail ！");这里面两个邮箱账号要一致
-                                    sender.sendEmail("smtp.qq.com", "920609306@qq.com", "whb**5211");
+                                    sender.sendEmail("smtp.qq.com", "92******6@qq.com", "******");
                                 } catch (MessagingException e) {
                                     mhandler.sendEmptyMessage(1);
                                 }

@@ -59,10 +59,10 @@ public class DetailedinfoFragment extends Fragment {
         food_remarks = view.findViewById(R.id.food_remarks);
         food_order = view.findViewById(R.id.food_order);
 
-        food_image.setImageResource(R.drawable.help);
-        food_name.setText("心灵鸡汤");
-        food_price.setText("25元");
-        food_remarks.setHint(" ");//备注
+        food_image.setImageResource(R.drawable.potato);
+        food_name.setText("酸辣土豆丝");
+        food_price.setText("23元");
+        food_remarks.setHint("");//备注
         food_order.setText("点菜");
     }
 }

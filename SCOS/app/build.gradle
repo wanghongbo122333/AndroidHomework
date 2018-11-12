@@ -16,6 +16,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INFTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INFTICE.txt'
+    }
+
+
 }
 
 dependencies {
@@ -30,4 +39,5 @@ dependencies {
     implementation files('libs/activation.jar')
     implementation files('libs/mail.jar')
     implementation files('libs/additionnal.jar')
+    implementation files('libs/commons-codec-1.10.jar')
 }
