@@ -102,11 +102,11 @@ public class LoginOrRegister extends AppCompatActivity {
                                     Bundle data = new Bundle();
                                     data.putString("result", result);
                                     msg.setData(data);
-                                    hander.sendMessage(msg);
+                                    handler.sendMessage(msg);
                                 }
 
                                 @SuppressLint("HandlerLeak")
-                                Handler hander = new Handler() {
+                                Handler handler = new Handler() {
                                     @Override
                                     public void handleMessage(Message msg) {
                                         if (msg.what == 0x11) {
@@ -117,12 +117,12 @@ public class LoginOrRegister extends AppCompatActivity {
                                             try {
                                                 JSONObject json = new JSONObject(key);
                                                 Log.d("httpServer", "newJson");
-                                                String result = (String) json.get("result");
+                                                int result = (Integer) json.get("result");
                                                 Log.d("httpServer", "getResult");
-                                                if ("success".equals(result)) {
+                                                if (1 == result) {
                                                     Log.d("login", "loginSuccess");
                                                     Toast.makeText(LoginOrRegister.this, "登录成功", Toast.LENGTH_LONG).show();
-                                                } else if ("error".equals(result)) {
+                                                } else if (0 == result) {
                                                     Log.d("login", "loginFailed");
                                                     Toast.makeText(LoginOrRegister.this, "登录失败", Toast.LENGTH_LONG).show();
                                                 }

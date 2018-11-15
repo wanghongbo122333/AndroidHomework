@@ -41,7 +41,6 @@ public class FoodView extends AppCompatActivity {
     private User currentUser = null;
 
     Messenger mServerMessenger;
-    //    ServerObserverService.MyBinder binder;
     ServiceConnection sc = new MyServiceConnection();
     Messenger mClientMessenger = new Messenger(new ClientHandler());//mClientMessenger指向ClientHandler
 
@@ -57,22 +56,14 @@ public class FoodView extends AppCompatActivity {
                 final String foodName = bundle.getString("foodname");
                 final int price = bundle.getInt("price");
                 final String type = bundle.getString("type");
-                Toast.makeText(FoodView.this, "新增"  + foodName+" "+price+"元", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FoodView.this, "新增" + foodName + " " + price + "元", Toast.LENGTH_SHORT).show();
 
                 //展示在菜单中
-                addFood(new Food(foodName,price,inventory),type);
+                addFood(new Food(foodName, price, inventory), type);
                 //通知栏显示
                 Intent intent2 = new Intent(FoodView.this, UpdateService.class);
                 intent2.putExtra("info", bundle);
                 startService(intent2);
-//                Intent intent = new Intent(FoodView.this,FoodView.class);
-//                startActivity(intent);
-//                CuisineFragment fragment =
-//                        (CuisineFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewpager + ":0");
-//                if (fragment != null) {
-//                    Log.d(TAG, "handleMessage: 加菜");
-//                }
-
             }
         }
     }
@@ -193,25 +184,25 @@ public class FoodView extends AppCompatActivity {
      */
     public void initialMenu() {
 
-        coldFood.add(new Food("凉皮1", 25,13));
-        coldFood.add(new Food("凉皮2", 25,13));
-        coldFood.add(new Food("凉皮4", 25,13));
-        coldFood.add(new Food("凉皮5", 25,13));
+        coldFood.add(new Food("凉皮1", 25, 13));
+        coldFood.add(new Food("凉皮2", 25, 13));
+        coldFood.add(new Food("凉皮4", 25, 13));
+        coldFood.add(new Food("凉皮5", 25, 13));
 
-        hotDishes.add(new Food("大盘鸡1", 48,13));
-        hotDishes.add(new Food("大盘鸡2", 48,13));
-        hotDishes.add(new Food("大盘鸡3", 48,13));
-        hotDishes.add(new Food("大盘鸡4", 48,13));
+        hotDishes.add(new Food("大盘鸡1", 48, 13));
+        hotDishes.add(new Food("大盘鸡2", 48, 13));
+        hotDishes.add(new Food("大盘鸡3", 48, 13));
+        hotDishes.add(new Food("大盘鸡4", 48, 13));
 
 
-        seaFood.add(new Food("大闸蟹1", 256,13));
-        seaFood.add(new Food("大闸蟹2", 256,13));
-        seaFood.add(new Food("大闸蟹3", 256,13));
-        seaFood.add(new Food("大闸蟹4", 256,13));
+        seaFood.add(new Food("大闸蟹1", 256, 13));
+        seaFood.add(new Food("大闸蟹2", 256, 13));
+        seaFood.add(new Food("大闸蟹3", 256, 13));
+        seaFood.add(new Food("大闸蟹4", 256, 13));
 
-        drinks.add(new Food("茅台1", 2562,13));
-        drinks.add(new Food("茅台1", 2562,13));
-        drinks.add(new Food("茅台1", 2562,13));
+        drinks.add(new Food("茅台1", 2562, 13));
+        drinks.add(new Food("茅台1", 2562, 13));
+        drinks.add(new Food("茅台1", 2562, 13));
 
 
         fragmentList.add(new CuisineFragment("冷菜", coldFood));

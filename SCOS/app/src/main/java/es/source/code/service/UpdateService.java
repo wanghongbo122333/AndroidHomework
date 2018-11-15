@@ -5,6 +5,9 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -13,7 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import es.source.code.activity.FoodDetailed;
-import es.source.code.activity.MainScreen;
 import es.source.code.model.Food;
 import es.source.code.model.HttpUtilsHttpClient;
 
@@ -47,11 +49,20 @@ public class UpdateService extends IntentService {
 
         //请求，返回json
         String result = HttpUtilsHttpClient.getRequest(url);
+        if (result != null) {//如果访问服务器成功，播放系统提示音
+            try {
+                Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone rt = RingtoneManager.getRingtone(getApplicationContext(), uri);
+                rt.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         Food foodInfo = new Food();
         try {
             JSONObject jsonObject = new JSONObject(result);
             Log.d("httpServer", jsonObject.toString());
-            foodInfo.setInventory((int)jsonObject.get("store"));
+            foodInfo.setInventory((int) jsonObject.get("store"));
             Log.d("httpServer", "num" + foodInfo.getInventory());
         } catch (JSONException e) {
             Log.d("httpServer", "json - food - error");

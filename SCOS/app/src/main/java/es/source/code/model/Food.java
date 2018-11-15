@@ -23,7 +23,7 @@ public class Food {
     private int inventory;//库存
     private boolean isReturnable;//该菜可退  0不可退1可退
 
-    public Food(String name, int price,int inventory) {
+    public Food(String name, int price, int inventory) {
         this.name = name;
         this.price = price;
         this.inventory = inventory;
@@ -39,7 +39,7 @@ public class Food {
     }
 
     public boolean getIsReturnable() {
-            return isReturnable;
+        return isReturnable;
     }
 
     public void setIsReturnable(boolean isReturnable) {
